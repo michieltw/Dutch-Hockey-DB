@@ -1,6 +1,6 @@
 # Benelux Ice Hockey Ecosystem - Database Tables
 
-This document contains an extensive, Supabase-compatible (`snake_case`) list of potential database tables for a comprehensive Benelux Ice Hockey platform. The tables are grouped by an updated category structure to accommodate highly specific data from local federations (IJshockey Nederland), international bodies (IIHF), and extensive statistical platforms (Elite Prospects, HockeyDB).
+This document contains an extensive, Supabase-compatible (`snake_case`) list of potential database tables for a comprehensive Benelux Ice Hockey platform. The tables are grouped by an updated category structure to accommodate highly specific data from local federations (IJshockey Nederland), international bodies (IIHF), extensive statistical platforms (Elite Prospects, HockeyDB), professional tracking (NHL EDGE), and simulation concepts (EA NHL, Franchise Hockey Manager).
 
 The tables include functional tags to indicate their primary domain.
 
@@ -21,8 +21,8 @@ The tables include functional tags to indicate their primary domain.
 - `affiliations` [Core]
 - `club_hierarchies` [Core]
 
-## 2. Player Profiles & Demographics
-*Expanded player data inspired by Elite Prospects & HockeyDB.*
+## 2. Player Profiles, Demographics & Attributes
+*Expanded player data inspired by Elite Prospects, HockeyDB, and video game simulation mechanics.*
 
 - `players` [Core]
 - `player_history` [Core]
@@ -34,6 +34,10 @@ The tables include functional tags to indicate their primary domain.
 - `alumni_associations` [Demographics]
 - `hall_of_fame_inductions` [Demographics]
 - `national_team_selections` [Demographics]
+- `player_attributes` [Scouting] (Granular skills: speed, checking, awareness)
+- `player_roles` [Scouting] (e.g., Sniper, Playmaker, Grinder, Two-Way)
+- `player_morale` [Simulation/Fantasy]
+- `line_chemistry` [Simulation/Fantasy]
 
 ## 3. Competitions, Leagues & Rosters
 *Structure of leagues, tournaments, and specific local roster rules (e.g., IJshockey Nederland age dispensations).*
@@ -95,8 +99,8 @@ The tables include functional tags to indicate their primary domain.
 - `player_game_stats` [Live Scoring]
 - `team_game_stats` [Live Scoring]
 
-## 6. Advanced Stats & Analytics
-*Granular statistics, advanced metrics, and tracking data.*
+## 6. Advanced Stats & Tracking Analytics
+*Granular statistics, advanced metrics, and physics tracking data (inspired by NHL EDGE).*
 
 - `advanced_player_metrics` [Analytics] (e.g. Corsi, Fenwick, PDO)
 - `advanced_team_metrics` [Analytics]
@@ -109,6 +113,9 @@ The tables include functional tags to indicate their primary domain.
 - `expected_goals` [Analytics]
 - `passing_metrics` [Analytics]
 - `faceoff_win_percentages` [Analytics]
+- `skating_speed_records` [Analytics]
+- `shot_speed_records` [Analytics]
+- `distance_traveled` [Analytics]
 
 ## 7. Regulatory, Compliance & Rules (IIHF/Local)
 *Tables for ensuring safety, integrity, IIHF rulebooks, and federation memberships.*
@@ -131,7 +138,7 @@ The tables include functional tags to indicate their primary domain.
 - `disciplinary_hearings` [Compliance]
 
 ## 8. Contracts, Transfers & Administration
-*Handling the administrative side, transfers, and official agreements.*
+*Handling complex transactions spanning North American and European rules.*
 
 - `licenses` [Administration]
 - `license_types` [Administration]
@@ -139,15 +146,21 @@ The tables include functional tags to indicate their primary domain.
 - `transfer_rules` [Administration]
 - `transfer_rumors` [Administration] (Elite Prospects style)
 - `contracts` [Administration]
+- `contract_clauses` [Administration] (NMC, NTC)
 - `salaries` [Administration]
+- `retained_salaries` [Administration]
 - `salary_caps` [Administration]
+- `waivers` [Administration]
+- `buyouts` [Administration]
+- `loan_agreements` [Administration] (EU specific)
+- `two_way_contracts` [Administration]
 - `officials` [Administration]
 - `referee_assignments` [Administration]
 - `insurance_policies` [Administration]
 - `background_checks` [Administration]
 
-## 9. Club Management & Logistics
-*Day-to-day operations, finances, and travel.*
+## 9. Club Management & Coaching
+*Day-to-day operations, finances, and strategic coaching.*
 
 - `sponsors` [Management]
 - `sponsorship_deals` [Management]
@@ -163,6 +176,7 @@ The tables include functional tags to indicate their primary domain.
 - `youth_academies` [Management]
 - `academy_enrollments` [Management]
 - `regional_talent_centers` [Management] (RTCs / Nationale Trainingscentra)
+- `coaching_strategies` [Coaching] (Systems like 1-3-1, Trap, Dump & Chase)
 
 ## 10. Player Development, Scouting & Medical
 *Training, evaluation, scouting rankings, and player health.*
@@ -269,10 +283,15 @@ The tables include functional tags to indicate their primary domain.
 - `trivia_answers` [Gamification]
 
 ## 15. Media, Broadcasting & History
-*News, broadcasting, historical records, and awards.*
+*News, editorial content (Face-off NL style), historical records, and awards.*
 
 - `articles` [Media]
 - `authors` [Media]
+- `editorial_columns` [Media]
+- `match_previews` [Media]
+- `match_reports` [Media]
+- `interviews` [Media]
+- `newsletters` [Media]
 - `galleries` [Media]
 - `photos` [Media]
 - `videos` [Media]
