@@ -1,28 +1,42 @@
 # Benelux Ice Hockey Ecosystem - Database Tables
 
-This document contains an extensive, Supabase-compatible (`snake_case`) list of potential database tables for a comprehensive Benelux Ice Hockey platform. The tables are grouped by category and include functional tags to indicate their primary domain.
+This document contains an extensive, Supabase-compatible (`snake_case`) list of potential database tables for a comprehensive Benelux Ice Hockey platform. The tables are grouped by an updated category structure to accommodate highly specific data from local federations (IJshockey Nederland), international bodies (IIHF), and extensive statistical platforms (Elite Prospects, HockeyDB).
+
+The tables include functional tags to indicate their primary domain.
 
 ## 1. Core Entities & Infrastructure
-*These tables form the foundational data for the hockey ecosystem.*
+*Foundational data for the hockey ecosystem.*
 
 - `federations` [Core]
 - `clubs` [Core]
 - `teams` [Core]
 - `arenas` [Core]
 - `rinks` [Core]
-- `players` [Core]
 - `coaches` [Core]
 - `staff` [Core]
 - `team_staff` [Core]
 - `rosters` [Core]
-- `player_history` [Core]
 - `nationalities` [Core]
 - `regions` [Core]
 - `affiliations` [Core]
 - `club_hierarchies` [Core]
 
-## 2. Competitions & Leagues
-*Tables related to the structure of leagues, tournaments, and standings across the Benelux region.*
+## 2. Player Profiles & Demographics
+*Expanded player data inspired by Elite Prospects & HockeyDB.*
+
+- `players` [Core]
+- `player_history` [Core]
+- `family_connections` [Demographics] (e.g., father, brother, son)
+- `agents` [Demographics]
+- `agencies` [Demographics]
+- `player_agent_relationships` [Demographics]
+- `career_milestones` [Demographics]
+- `alumni_associations` [Demographics]
+- `hall_of_fame_inductions` [Demographics]
+- `national_team_selections` [Demographics]
+
+## 3. Competitions, Leagues & Rosters
+*Structure of leagues, tournaments, and specific local roster rules (e.g., IJshockey Nederland age dispensations).*
 
 - `leagues` [Core]
 - `seasons` [Core]
@@ -37,9 +51,24 @@ This document contains an extensive, Supabase-compatible (`snake_case`) list of 
 - `relegation_rules` [Core]
 - `bracket_matchups` [Core]
 - `wildcard_standings` [Core]
+- `age_categories` [Competitions] (U9, U11, U13, etc.)
+- `age_dispensations` [Competitions] (Dispensatieregeling)
+- `import_quotas` [Competitions]
 
-## 3. Live Scoring & In-Game Events
-*Tables to support a comprehensive live scoring system and detailed in-game event tracking.*
+## 4. Game Day Operations & Volunteering
+*Logistics of running a game, highly relevant to local clubs like GIJS Groningen.*
+
+- `game_day_roles` [Operations]
+- `volunteers` [Operations]
+- `volunteer_assignments` [Operations] (e.g., Tafeljury, Strafbank, Speaker, DJ)
+- `digital_game_sheets` [Operations] (Digitaal Wedstrijdformulier - DWF)
+- `game_sheet_signatures` [Operations]
+- `security_personnel` [Operations]
+- `medical_staff_assignments` [Operations]
+- `ice_resurfacing_schedule` [Operations]
+
+## 5. Live Scoring & In-Game Events
+*Comprehensive live scoring system and detailed in-game event tracking.*
 
 - `games` [Live Scoring]
 - `game_officials` [Live Scoring]
@@ -66,8 +95,8 @@ This document contains an extensive, Supabase-compatible (`snake_case`) list of 
 - `player_game_stats` [Live Scoring]
 - `team_game_stats` [Live Scoring]
 
-## 4. Advanced Stats & Analytics
-*Tables for granular statistics, advanced metrics, and tracking data.*
+## 6. Advanced Stats & Analytics
+*Granular statistics, advanced metrics, and tracking data.*
 
 - `advanced_player_metrics` [Analytics] (e.g. Corsi, Fenwick, PDO)
 - `advanced_team_metrics` [Analytics]
@@ -79,38 +108,46 @@ This document contains an extensive, Supabase-compatible (`snake_case`) list of 
 - `player_tracking_data` [Analytics]
 - `expected_goals` [Analytics]
 - `passing_metrics` [Analytics]
+- `faceoff_win_percentages` [Analytics]
 
-## 5. Operations, Licensing & Administration
-*Tables handling the administrative side, including transfers, officials, and discipline.*
+## 7. Regulatory, Compliance & Rules (IIHF/Local)
+*Tables for ensuring safety, integrity, IIHF rulebooks, and federation memberships.*
 
-- `licenses` [Operations]
-- `license_types` [Operations]
-- `transfers` [Operations]
-- `transfer_rules` [Operations]
-- `suspensions` [Operations]
-- `disciplinary_hearings` [Operations]
-- `contracts` [Operations]
-- `salaries` [Operations]
-- `salary_caps` [Operations]
-- `officials` [Operations]
-- `referee_assignments` [Operations]
-- `equipment_certifications` [Operations]
-- `insurance_policies` [Operations]
-- `background_checks` [Operations]
-
-## 6. Regulatory & Compliance
-*Tables for ensuring safety, integrity, and regulatory adherence.*
-
+- `federation_memberships` [Compliance] (Bondsnummers)
+- `rulebooks` [Compliance] (IIHF, Local)
+- `rule_versions` [Compliance]
+- `rule_changes` [Compliance]
+- `international_transfer_cards` [Compliance] (ITCs)
+- `rink_specifications` [Compliance] (Dimensions, Glass height)
+- `equipment_specifications` [Compliance] (Visor mandates, neck guards)
 - `anti_doping_records` [Compliance]
-- `safeguarding_logs` [Compliance]
+- `safeguarding_logs` [Compliance] (VOGs in NL)
 - `safe_sport_certifications` [Compliance]
 - `official_evaluations` [Compliance]
 - `training_certifications` [Compliance]
 - `incident_reports` [Compliance]
 - `appeals` [Compliance]
+- `suspensions` [Compliance]
+- `disciplinary_hearings` [Compliance]
 
-## 7. Club Management & Logistics
-*Tables for running a club on a day-to-day basis, from finances to travel.*
+## 8. Contracts, Transfers & Administration
+*Handling the administrative side, transfers, and official agreements.*
+
+- `licenses` [Administration]
+- `license_types` [Administration]
+- `transfers` [Administration]
+- `transfer_rules` [Administration]
+- `transfer_rumors` [Administration] (Elite Prospects style)
+- `contracts` [Administration]
+- `salaries` [Administration]
+- `salary_caps` [Administration]
+- `officials` [Administration]
+- `referee_assignments` [Administration]
+- `insurance_policies` [Administration]
+- `background_checks` [Administration]
+
+## 9. Club Management & Logistics
+*Day-to-day operations, finances, and travel.*
 
 - `sponsors` [Management]
 - `sponsorship_deals` [Management]
@@ -122,14 +159,13 @@ This document contains an extensive, Supabase-compatible (`snake_case`) list of 
 - `travel_itineraries` [Management]
 - `transportation_logs` [Management]
 - `accommodation_bookings` [Management]
-- `volunteers` [Management]
-- `volunteer_shifts` [Management]
 - `staff_schedules` [Management]
 - `youth_academies` [Management]
 - `academy_enrollments` [Management]
+- `regional_talent_centers` [Management] (RTCs / Nationale Trainingscentra)
 
-## 8. Player Development, Scouting & Medical
-*Tables for training, evaluation, scouting, and player health.*
+## 10. Player Development, Scouting & Medical
+*Training, evaluation, scouting rankings, and player health.*
 
 - `training_sessions` [Development]
 - `practice_attendance` [Development]
@@ -141,6 +177,7 @@ This document contains an extensive, Supabase-compatible (`snake_case`) list of 
 - `scouting_reports` [Development]
 - `player_ratings` [Development]
 - `draft_prospects` [Development]
+- `draft_rankings` [Development] (Elite Prospects style)
 - `draft_picks` [Development]
 - `injuries` [Medical]
 - `medical_records` [Medical]
@@ -148,8 +185,8 @@ This document contains an extensive, Supabase-compatible (`snake_case`) list of 
 - `concussion_protocols` [Medical]
 - `treatment_logs` [Medical]
 
-## 9. Facilities & Maintenance
-*Tables for arena operations and equipment.*
+## 11. Facilities & Maintenance
+*Arena operations and equipment.*
 
 - `locker_rooms` [Facilities]
 - `locker_assignments` [Facilities]
@@ -161,8 +198,8 @@ This document contains an extensive, Supabase-compatible (`snake_case`) list of 
 - `skate_sharpening_logs` [Facilities]
 - `safety_inspections` [Facilities]
 
-## 10. Social & Community
-*Tables to support the social network features for fans, players, and clubs.*
+## 12. Social, Community & Networking
+*Social network features for fans, players, and clubs.*
 
 - `users` [Social]
 - `profiles` [Social]
@@ -183,8 +220,8 @@ This document contains an extensive, Supabase-compatible (`snake_case`) list of 
 - `fan_clubs` [Social]
 - `user_roles` [Social]
 
-## 11. Marketplace & Ticketing
-*Tables for a marketplace supporting merchandise, ticket sales, and second-hand equipment.*
+## 13. Marketplace & Ticketing
+*Merchandise, ticket sales, and second-hand equipment.*
 
 - `products` [Marketplace]
 - `categories` [Marketplace]
@@ -209,8 +246,8 @@ This document contains an extensive, Supabase-compatible (`snake_case`) list of 
 - `rows` [Ticketing]
 - `seats` [Ticketing]
 
-## 12. Gamification & Fantasy
-*Tables for interactive features, fan engagement, and fantasy hockey.*
+## 14. Gamification & Fantasy
+*Interactive features, fan engagement, and fantasy hockey.*
 
 - `achievements` [Gamification]
 - `badges` [Gamification]
@@ -231,8 +268,8 @@ This document contains an extensive, Supabase-compatible (`snake_case`) list of 
 - `trivia_questions` [Gamification]
 - `trivia_answers` [Gamification]
 
-## 13. Media, Broadcasting & Content
-*Tables for news, broadcasting, and media storage.*
+## 15. Media, Broadcasting & History
+*News, broadcasting, historical records, and awards.*
 
 - `articles` [Media]
 - `authors` [Media]
@@ -247,3 +284,8 @@ This document contains an extensive, Supabase-compatible (`snake_case`) list of 
 - `press_releases` [Media]
 - `podcasts` [Media]
 - `podcast_episodes` [Media]
+- `awards` [History]
+- `trophies` [History]
+- `award_winners` [History]
+- `historical_records` [History] (e.g., most goals in a season)
+- `championship_banners` [History]
