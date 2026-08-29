@@ -175,47 +175,6 @@ CREATE TABLE draft_picks (
 );
 ALTER TABLE draft_picks ENABLE ROW LEVEL SECURITY;
 
--- 13. rehab_programs
-CREATE TABLE rehab_programs (
-    id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
-    ini_code VARCHAR(4) DEFAULT 'REHB',
-    injury_id UUID NOT NULL REFERENCES injuries(id) ON DELETE CASCADE,
-    start_date DATE,
-    end_date DATE,
-    notes TEXT,
-    created_at TIMESTAMPTZ DEFAULT NOW(),
-    updated_at TIMESTAMPTZ,
-    deleted_at TIMESTAMPTZ
-);
-ALTER TABLE rehab_programs ENABLE ROW LEVEL SECURITY;
-
--- 14. concussion_protocols
-CREATE TABLE concussion_protocols (
-    id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
-    ini_code VARCHAR(4) DEFAULT 'CONC',
-    injury_id UUID NOT NULL REFERENCES injuries(id) ON DELETE CASCADE,
-    step_reached INTEGER, -- 1 to 6 return-to-play steps
-    cleared BOOLEAN DEFAULT FALSE,
-    created_at TIMESTAMPTZ DEFAULT NOW(),
-    updated_at TIMESTAMPTZ,
-    deleted_at TIMESTAMPTZ
-);
-ALTER TABLE concussion_protocols ENABLE ROW LEVEL SECURITY;
-
--- 15. treatment_logs
-CREATE TABLE treatment_logs (
-    id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
-    ini_code VARCHAR(4) DEFAULT 'TREL',
-    injury_id UUID NOT NULL REFERENCES injuries(id) ON DELETE CASCADE,
-    treatment_date DATE,
-    description TEXT,
-    administered_by_id UUID REFERENCES staff(id) ON DELETE SET NULL,
-    created_at TIMESTAMPTZ DEFAULT NOW(),
-    updated_at TIMESTAMPTZ,
-    deleted_at TIMESTAMPTZ
-);
-ALTER TABLE treatment_logs ENABLE ROW LEVEL SECURITY;
-
 -- 16. locker_rooms
 CREATE TABLE locker_rooms (
     id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
@@ -547,3 +506,66 @@ CREATE TABLE user_roles (
     deleted_at TIMESTAMPTZ
 );
 ALTER TABLE user_roles ENABLE ROW LEVEL SECURITY;
+
+-- Indexes for foreign keys
+CREATE INDEX idx_training_sessions_team_id ON training_sessions(team_id);
+CREATE INDEX idx_training_sessions_rink_id ON training_sessions(rink_id);
+CREATE INDEX idx_practice_attendance_session_id ON practice_attendance(session_id);
+CREATE INDEX idx_practice_attendance_player_id ON practice_attendance(player_id);
+CREATE INDEX idx_skill_evaluations_player_id ON skill_evaluations(player_id);
+CREATE INDEX idx_skill_evaluations_evaluator_id ON skill_evaluations(evaluator_id);
+CREATE INDEX idx_development_plans_player_id ON development_plans(player_id);
+CREATE INDEX idx_development_plans_coach_id ON development_plans(coach_id);
+CREATE INDEX idx_fitness_tests_player_id ON fitness_tests(player_id);
+CREATE INDEX idx_scouts_person_id ON scouts(person_id);
+CREATE INDEX idx_scouts_organization_id ON scouts(organization_id);
+CREATE INDEX idx_scouting_reports_scout_id ON scouting_reports(scout_id);
+CREATE INDEX idx_scouting_reports_player_id ON scouting_reports(player_id);
+CREATE INDEX idx_scouting_reports_game_id ON scouting_reports(game_id);
+CREATE INDEX idx_player_ratings_player_id ON player_ratings(player_id);
+CREATE INDEX idx_draft_prospects_player_id ON draft_prospects(player_id);
+CREATE INDEX idx_draft_prospects_league_id ON draft_prospects(league_id);
+CREATE INDEX idx_draft_rankings_prospect_id ON draft_rankings(prospect_id);
+CREATE INDEX idx_draft_picks_league_id ON draft_picks(league_id);
+CREATE INDEX idx_draft_picks_club_id ON draft_picks(club_id);
+CREATE INDEX idx_draft_picks_player_id ON draft_picks(player_id);
+CREATE INDEX idx_locker_rooms_arena_id ON locker_rooms(arena_id);
+CREATE INDEX idx_locker_assignments_locker_room_id ON locker_assignments(locker_room_id);
+CREATE INDEX idx_locker_assignments_player_id ON locker_assignments(player_id);
+CREATE INDEX idx_ice_maintenance_logs_rink_id ON ice_maintenance_logs(rink_id);
+CREATE INDEX idx_ice_maintenance_logs_performed_by_id ON ice_maintenance_logs(performed_by_id);
+CREATE INDEX idx_zamboni_schedules_rink_id ON zamboni_schedules(rink_id);
+CREATE INDEX idx_zamboni_schedules_driver_id ON zamboni_schedules(driver_id);
+CREATE INDEX idx_facility_bookings_rink_id ON facility_bookings(rink_id);
+CREATE INDEX idx_facility_bookings_booked_by_org_id ON facility_bookings(booked_by_org_id);
+CREATE INDEX idx_equipment_inventory_club_id ON equipment_inventory(club_id);
+CREATE INDEX idx_equipment_repairs_inventory_id ON equipment_repairs(inventory_id);
+CREATE INDEX idx_skate_sharpening_logs_player_id ON skate_sharpening_logs(player_id);
+CREATE INDEX idx_skate_sharpening_logs_sharpened_by_id ON skate_sharpening_logs(sharpened_by_id);
+CREATE INDEX idx_safety_inspections_arena_id ON safety_inspections(arena_id);
+CREATE INDEX idx_player_skates_player_id ON player_skates(player_id);
+CREATE INDEX idx_player_skates_brand_id ON player_skates(brand_id);
+CREATE INDEX idx_player_protective_gear_player_id ON player_protective_gear(player_id);
+CREATE INDEX idx_player_protective_gear_brand_id ON player_protective_gear(brand_id);
+CREATE INDEX idx_profiles_user_id ON profiles(user_id);
+CREATE INDEX idx_profiles_favorite_club_id ON profiles(favorite_club_id);
+CREATE INDEX idx_friendships_user1_id ON friendships(user1_id);
+CREATE INDEX idx_friendships_user2_id ON friendships(user2_id);
+CREATE INDEX idx_follows_follower_id ON follows(follower_id);
+CREATE INDEX idx_follows_followed_id ON follows(followed_id);
+CREATE INDEX idx_likes_user_id ON likes(user_id);
+CREATE INDEX idx_likes_post_id ON likes(post_id);
+CREATE INDEX idx_likes_comment_id ON likes(comment_id);
+CREATE INDEX idx_shares_user_id ON shares(user_id);
+CREATE INDEX idx_shares_post_id ON shares(post_id);
+CREATE INDEX idx_messages_sender_id ON messages(sender_id);
+CREATE INDEX idx_messages_receiver_id ON messages(receiver_id);
+CREATE INDEX idx_forum_topics_category_id ON forum_topics(category_id);
+CREATE INDEX idx_forum_topics_author_id ON forum_topics(author_id);
+CREATE INDEX idx_forum_replies_topic_id ON forum_replies(topic_id);
+CREATE INDEX idx_forum_replies_author_id ON forum_replies(author_id);
+CREATE INDEX idx_polls_created_by_id ON polls(created_by_id);
+CREATE INDEX idx_poll_votes_poll_id ON poll_votes(poll_id);
+CREATE INDEX idx_poll_votes_user_id ON poll_votes(user_id);
+CREATE INDEX idx_fan_clubs_club_id ON fan_clubs(club_id);
+CREATE INDEX idx_user_roles_user_id ON user_roles(user_id);

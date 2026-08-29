@@ -204,3 +204,36 @@ CREATE TABLE stick_performance_logs (
     deleted_at TIMESTAMPTZ
 );
 ALTER TABLE stick_performance_logs ENABLE ROW LEVEL SECURITY;
+
+-- Indexes for foreign keys
+CREATE INDEX idx_rosters_team_id ON rosters(team_id);
+CREATE INDEX idx_rosters_player_id ON rosters(player_id);
+CREATE INDEX idx_rosters_season_id ON rosters(season_id);
+CREATE INDEX idx_team_staff_team_id ON team_staff(team_id);
+CREATE INDEX idx_team_staff_staff_id ON team_staff(staff_id);
+CREATE INDEX idx_team_staff_season_id ON team_staff(season_id);
+CREATE INDEX idx_player_agent_relationships_player_id ON player_agent_relationships(player_id);
+CREATE INDEX idx_player_agent_relationships_agent_id ON player_agent_relationships(agent_id);
+CREATE INDEX idx_starting_lineups_game_id ON starting_lineups(game_id);
+CREATE INDEX idx_starting_lineups_team_id ON starting_lineups(team_id);
+CREATE INDEX idx_starting_lineups_player_id ON starting_lineups(player_id);
+CREATE INDEX idx_club_memberships_user_id ON club_memberships(user_id);
+CREATE INDEX idx_club_memberships_club_id ON club_memberships(club_id);
+CREATE INDEX idx_fantasy_rosters_user_id ON fantasy_rosters(user_id);
+CREATE INDEX idx_fantasy_rosters_player_id ON fantasy_rosters(player_id);
+CREATE INDEX idx_fantasy_rosters_league_id ON fantasy_rosters(league_id);
+CREATE INDEX idx_fantasy_rosters_season_id ON fantasy_rosters(season_id);
+CREATE INDEX idx_volunteer_assignments_person_id ON volunteer_assignments(person_id);
+CREATE INDEX idx_volunteer_assignments_game_id ON volunteer_assignments(game_id);
+CREATE INDEX idx_player_achievements_player_id ON player_achievements(player_id);
+CREATE INDEX idx_player_achievements_achievement_id ON player_achievements(achievement_id);
+CREATE INDEX idx_player_achievements_season_id ON player_achievements(season_id);
+CREATE INDEX idx_game_officials_game_id ON game_officials(game_id);
+CREATE INDEX idx_game_officials_official_id ON game_officials(official_id);
+CREATE INDEX idx_sponsorships_sponsor_id ON sponsorships(sponsor_id);
+CREATE INDEX idx_sponsorships_club_id ON sponsorships(club_id);
+CREATE INDEX idx_sponsorships_league_id ON sponsorships(league_id);
+CREATE INDEX idx_player_sticks_player_id ON player_sticks(player_id);
+CREATE INDEX idx_player_sticks_brand_id ON player_sticks(brand_id);
+CREATE INDEX idx_player_sticks_age_category_id ON player_sticks(age_category_id);
+CREATE INDEX idx_stick_performance_logs_stick_id ON stick_performance_logs(stick_id);

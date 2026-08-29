@@ -71,7 +71,6 @@ The tables include functional tags to indicate their primary domain.
 - `digital_game_sheets` [Operations] (Digitaal Wedstrijdformulier - DWF)
 - `game_sheet_signatures` [Operations]
 - `security_personnel` [Operations]
-- `medical_staff_assignments` [Operations]
 - `ice_resurfacing_schedule` [Operations]
 
 ## 5. Live Scoring & In-Game Events
@@ -199,10 +198,6 @@ The tables include functional tags to indicate their primary domain.
 - `draft_rankings` [Development] (Elite Prospects style)
 - `draft_picks` [Development]
 - `injuries` [Medical]
-- `medical_records` [Medical]
-- `rehab_programs` [Medical]
-- `concussion_protocols` [Medical]
-- `treatment_logs` [Medical]
 
 ## 11. Facilities, Maintenance & Player Equipment
 *Arena operations, general equipment, and specific player gear tracking.*

@@ -107,7 +107,6 @@ CREATE TABLE license_types (
     ini_code VARCHAR(4) DEFAULT 'LICT',
     name VARCHAR(100) NOT NULL,
     description TEXT,
-    requires_medical_clearance BOOLEAN DEFAULT FALSE,
     requires_background_check BOOLEAN DEFAULT FALSE,
     duration_months INTEGER,
     created_at TIMESTAMPTZ DEFAULT NOW(),
@@ -207,3 +206,6 @@ CREATE TABLE badges (
     deleted_at TIMESTAMPTZ
 );
 ALTER TABLE badges ENABLE ROW LEVEL SECURITY;
+
+-- Indexes for foreign keys
+CREATE INDEX idx_categories_parent_category_id ON categories(parent_category_id);
