@@ -9,8 +9,8 @@ CREATE TABLE unified_game_events (
     game_id UUID NOT NULL REFERENCES games(id) ON DELETE CASCADE,
     period_id UUID REFERENCES periods(id) ON DELETE CASCADE,
     time_elapsed INTERVAL NOT NULL,
-    event_type VARCHAR(50) NOT NULL, -- 'Goal', 'Shot', 'Penalty', 'Hit', 'Faceoff', 'Block', 'Takeaway', 'Giveaway'
-    team_id UUID REFERENCES teams(id) ON DELETE CASCADE, -- Primary team involved (e.g., scoring team, penalised team)
+    event_type VARCHAR(50) NOT NULL, -- 'Goal', 'Shot', 'Penalty', 'Hit', 'Faceoff', 'Block', 'Takeaway', 'Giveaway', 'Stoppage'
+    team_id UUID REFERENCES teams(id) ON DELETE CASCADE, -- Primary team involved (e.g., scoring team, penalised team, faceoff winning team)
     opposing_team_id UUID REFERENCES teams(id) ON DELETE CASCADE,
 
     -- Actors (Polymorphic naming to accommodate different event types)
@@ -38,6 +38,10 @@ CREATE TABLE unified_game_events (
     penalty_type penalty_type_enum,
     penalty_infraction penalty_infraction_enum,
     penalty_duration_minutes INTEGER,
+
+    -- Faceoff & Stoppage Specifics
+    faceoff_won_by_team_id UUID REFERENCES teams(id) ON DELETE SET NULL,
+    stoppage_reason VARCHAR(100), -- 'Icing', 'Offside', 'Goalie Freeze', 'Puck Out of Bounds', 'Hand Pass', 'High Sticking the Puck'
 
     -- Flexible Metadata for future-proofing
     metadata JSONB,
