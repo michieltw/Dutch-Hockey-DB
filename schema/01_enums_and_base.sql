@@ -26,12 +26,12 @@ CREATE TYPE equipment_status_enum AS ENUM ('Currently Used', 'Previously Used', 
 CREATE TYPE league_tier_enum AS ENUM ('Professional', 'Semi-Pro', 'Amateur', 'Junior', 'Youth', 'Recreational');
 CREATE TYPE series_format_enum AS ENUM ('Best of 1', 'Best of 3', 'Best of 5', 'Best of 7', 'Aggregate Score');
 
--- Medical & Injury Enums
+-- Injury Enums
 CREATE TYPE injury_status_enum AS ENUM ('Active', 'Day-to-Day', 'Week-to-Week', 'Month-to-Month', 'Out for Season', 'Recovered');
 CREATE TYPE injury_type_enum AS ENUM ('Upper Body', 'Lower Body', 'Head/Concussion', 'Illness', 'Undisclosed');
 
 -- User & Platform Enums
-CREATE TYPE user_role_enum AS ENUM ('Admin', 'Federation Official', 'Club Manager', 'Coach', 'Player', 'Fan', 'Referee', 'Scorekeeper', 'Medical Staff');
+CREATE TYPE user_role_enum AS ENUM ('Admin', 'Federation Official', 'Club Manager', 'Coach', 'Player', 'Fan', 'Referee', 'Scorekeeper');
 CREATE TYPE organization_type_enum AS ENUM ('Federation', 'Club', 'Sponsor', 'Agency', 'Media', 'Vendor');
 CREATE TYPE transfer_type_enum AS ENUM ('Permanent', 'Loan', 'Tryout', 'Rights Only');
 CREATE TYPE transfer_status_enum AS ENUM ('Pending', 'Approved', 'Rejected', 'Cancelled', 'Completed');

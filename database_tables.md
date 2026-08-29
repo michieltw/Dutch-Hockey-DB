@@ -182,7 +182,7 @@ The tables include functional tags to indicate their primary domain.
 - `regional_talent_centers` [Management] (RTCs / Nationale Trainingscentra)
 - `coaching_strategies` [Coaching] (Systems like 1-3-1, Trap, Dump & Chase)
 
-## 10. Player Development, Scouting & Medical
+## 10. Player Development & Scouting
 *Training, evaluation, scouting rankings, and player health.*
 
 - `training_sessions` [Development]
@@ -197,7 +197,7 @@ The tables include functional tags to indicate their primary domain.
 - `draft_prospects` [Development]
 - `draft_rankings` [Development] (Elite Prospects style)
 - `draft_picks` [Development]
-- `injuries` [Medical]
+- `injuries` [Development]
 
 ## 11. Facilities, Maintenance & Player Equipment
 *Arena operations, general equipment, and specific player gear tracking.*
