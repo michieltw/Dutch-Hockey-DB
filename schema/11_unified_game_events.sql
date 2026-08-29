@@ -57,3 +57,11 @@ ALTER TABLE unified_game_events ENABLE ROW LEVEL SECURITY;
 CREATE INDEX idx_unified_events_game_id ON unified_game_events(game_id);
 CREATE INDEX idx_unified_events_player ON unified_game_events(primary_player_id);
 CREATE INDEX idx_unified_events_type ON unified_game_events(event_type);
+
+-- Indexes for foreign keys
+CREATE INDEX idx_unified_game_events_period_id ON unified_game_events(period_id);
+CREATE INDEX idx_unified_game_events_team_id ON unified_game_events(team_id);
+CREATE INDEX idx_unified_game_events_opposing_team_id ON unified_game_events(opposing_team_id);
+CREATE INDEX idx_unified_game_events_secondary_player_id ON unified_game_events(secondary_player_id);
+CREATE INDEX idx_unified_game_events_tertiary_player_id ON unified_game_events(tertiary_player_id);
+CREATE INDEX idx_unified_game_events_faceoff_won_by_team_id ON unified_game_events(faceoff_won_by_team_id);

@@ -389,19 +389,6 @@ CREATE TABLE security_personnel (
 );
 ALTER TABLE security_personnel ENABLE ROW LEVEL SECURITY;
 
--- 28. medical_staff_assignments
-CREATE TABLE medical_staff_assignments (
-    id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
-    ini_code VARCHAR(4) DEFAULT 'MDSA',
-    staff_id UUID NOT NULL REFERENCES staff(id) ON DELETE CASCADE,
-    game_id UUID NOT NULL REFERENCES games(id) ON DELETE CASCADE,
-    role VARCHAR(100), -- 'Team Doctor', 'Paramedic'
-    created_at TIMESTAMPTZ DEFAULT NOW(),
-    updated_at TIMESTAMPTZ,
-    deleted_at TIMESTAMPTZ
-);
-ALTER TABLE medical_staff_assignments ENABLE ROW LEVEL SECURITY;
-
 -- 29. ice_resurfacing_schedule
 CREATE TABLE ice_resurfacing_schedule (
     id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
@@ -415,3 +402,61 @@ CREATE TABLE ice_resurfacing_schedule (
     deleted_at TIMESTAMPTZ
 );
 ALTER TABLE ice_resurfacing_schedule ENABLE ROW LEVEL SECURITY;
+
+-- Indexes for foreign keys
+CREATE INDEX idx_affiliations_parent_club_id ON affiliations(parent_club_id);
+CREATE INDEX idx_affiliations_farm_club_id ON affiliations(farm_club_id);
+CREATE INDEX idx_club_hierarchies_parent_organization_id ON club_hierarchies(parent_organization_id);
+CREATE INDEX idx_club_hierarchies_child_organization_id ON club_hierarchies(child_organization_id);
+CREATE INDEX idx_player_history_player_id ON player_history(player_id);
+CREATE INDEX idx_player_history_season_id ON player_history(season_id);
+CREATE INDEX idx_player_history_team_id ON player_history(team_id);
+CREATE INDEX idx_player_history_league_id ON player_history(league_id);
+CREATE INDEX idx_family_connections_person1_id ON family_connections(person1_id);
+CREATE INDEX idx_family_connections_person2_id ON family_connections(person2_id);
+CREATE INDEX idx_career_milestones_player_id ON career_milestones(player_id);
+CREATE INDEX idx_career_milestones_game_id ON career_milestones(game_id);
+CREATE INDEX idx_alumni_associations_club_id ON alumni_associations(club_id);
+CREATE INDEX idx_hall_of_fame_inductions_person_id ON hall_of_fame_inductions(person_id);
+CREATE INDEX idx_hall_of_fame_inductions_organization_id ON hall_of_fame_inductions(organization_id);
+CREATE INDEX idx_national_team_selections_player_id ON national_team_selections(player_id);
+CREATE INDEX idx_national_team_selections_nationality_id ON national_team_selections(nationality_id);
+CREATE INDEX idx_national_team_selections_tournament_id ON national_team_selections(tournament_id);
+CREATE INDEX idx_player_attributes_player_id ON player_attributes(player_id);
+CREATE INDEX idx_player_attributes_evaluator_id ON player_attributes(evaluator_id);
+CREATE INDEX idx_player_morale_player_id ON player_morale(player_id);
+CREATE INDEX idx_line_chemistry_team_id ON line_chemistry(team_id);
+CREATE INDEX idx_line_chemistry_player1_id ON line_chemistry(player1_id);
+CREATE INDEX idx_line_chemistry_player2_id ON line_chemistry(player2_id);
+CREATE INDEX idx_cups_federation_id ON cups(federation_id);
+CREATE INDEX idx_phases_tournament_id ON phases(tournament_id);
+CREATE INDEX idx_series_phase_id ON series(phase_id);
+CREATE INDEX idx_series_team1_id ON series(team1_id);
+CREATE INDEX idx_series_team2_id ON series(team2_id);
+CREATE INDEX idx_series_winner_team_id ON series(winner_team_id);
+CREATE INDEX idx_standings_league_id ON standings(league_id);
+CREATE INDEX idx_standings_season_id ON standings(season_id);
+CREATE INDEX idx_standings_team_id ON standings(team_id);
+CREATE INDEX idx_tiebreakers_league_id ON tiebreakers(league_id);
+CREATE INDEX idx_relegation_rules_league_id ON relegation_rules(league_id);
+CREATE INDEX idx_bracket_matchups_tournament_id ON bracket_matchups(tournament_id);
+CREATE INDEX idx_bracket_matchups_matchup_id ON bracket_matchups(matchup_id);
+CREATE INDEX idx_bracket_matchups_next_matchup_id ON bracket_matchups(next_matchup_id);
+CREATE INDEX idx_wildcard_standings_conference_id ON wildcard_standings(conference_id);
+CREATE INDEX idx_wildcard_standings_season_id ON wildcard_standings(season_id);
+CREATE INDEX idx_wildcard_standings_team_id ON wildcard_standings(team_id);
+CREATE INDEX idx_age_dispensations_player_id ON age_dispensations(player_id);
+CREATE INDEX idx_age_dispensations_league_id ON age_dispensations(league_id);
+CREATE INDEX idx_age_dispensations_season_id ON age_dispensations(season_id);
+CREATE INDEX idx_age_dispensations_approved_by_id ON age_dispensations(approved_by_id);
+CREATE INDEX idx_import_quotas_league_id ON import_quotas(league_id);
+CREATE INDEX idx_import_quotas_season_id ON import_quotas(season_id);
+CREATE INDEX idx_volunteers_person_id ON volunteers(person_id);
+CREATE INDEX idx_volunteers_club_id ON volunteers(club_id);
+CREATE INDEX idx_digital_game_sheets_game_id ON digital_game_sheets(game_id);
+CREATE INDEX idx_digital_game_sheets_submitted_by_id ON digital_game_sheets(submitted_by_id);
+CREATE INDEX idx_game_sheet_signatures_game_sheet_id ON game_sheet_signatures(game_sheet_id);
+CREATE INDEX idx_game_sheet_signatures_signer_id ON game_sheet_signatures(signer_id);
+CREATE INDEX idx_security_personnel_person_id ON security_personnel(person_id);
+CREATE INDEX idx_security_personnel_arena_id ON security_personnel(arena_id);
+CREATE INDEX idx_ice_resurfacing_schedule_game_id ON ice_resurfacing_schedule(game_id);

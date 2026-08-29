@@ -162,21 +162,6 @@ CREATE TABLE injuries (
 );
 ALTER TABLE injuries ENABLE ROW LEVEL SECURITY;
 
--- 9. medical_records
-CREATE TABLE medical_records (
-    id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
-    ini_code VARCHAR(4) DEFAULT 'MEDR',
-    person_id UUID NOT NULL REFERENCES persons(id) ON DELETE CASCADE,
-    doctor_name VARCHAR(255),
-    record_date DATE,
-    notes TEXT,
-    is_cleared_to_play BOOLEAN DEFAULT TRUE,
-    created_at TIMESTAMPTZ DEFAULT NOW(),
-    updated_at TIMESTAMPTZ,
-    deleted_at TIMESTAMPTZ
-);
-ALTER TABLE medical_records ENABLE ROW LEVEL SECURITY;
-
 -- 10. orders
 CREATE TABLE orders (
     id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
@@ -276,3 +261,45 @@ CREATE TABLE expenses (
     deleted_at TIMESTAMPTZ
 );
 ALTER TABLE expenses ENABLE ROW LEVEL SECURITY;
+
+-- Indexes for foreign keys
+CREATE INDEX idx_games_league_id ON games(league_id);
+CREATE INDEX idx_games_season_id ON games(season_id);
+CREATE INDEX idx_games_home_team_id ON games(home_team_id);
+CREATE INDEX idx_games_away_team_id ON games(away_team_id);
+CREATE INDEX idx_games_arena_id ON games(arena_id);
+CREATE INDEX idx_periods_game_id ON periods(game_id);
+CREATE INDEX idx_goals_game_id ON goals(game_id);
+CREATE INDEX idx_goals_period_id ON goals(period_id);
+CREATE INDEX idx_goals_scoring_team_id ON goals(scoring_team_id);
+CREATE INDEX idx_goals_scorer_id ON goals(scorer_id);
+CREATE INDEX idx_goals_primary_assist_id ON goals(primary_assist_id);
+CREATE INDEX idx_goals_secondary_assist_id ON goals(secondary_assist_id);
+CREATE INDEX idx_penalties_game_id ON penalties(game_id);
+CREATE INDEX idx_penalties_period_id ON penalties(period_id);
+CREATE INDEX idx_penalties_team_id ON penalties(team_id);
+CREATE INDEX idx_penalties_player_id ON penalties(player_id);
+CREATE INDEX idx_penalties_drawn_by_player_id ON penalties(drawn_by_player_id);
+CREATE INDEX idx_shots_game_id ON shots(game_id);
+CREATE INDEX idx_shots_period_id ON shots(period_id);
+CREATE INDEX idx_shots_team_id ON shots(team_id);
+CREATE INDEX idx_shots_shooter_id ON shots(shooter_id);
+CREATE INDEX idx_shots_goalie_id ON shots(goalie_id);
+CREATE INDEX idx_contracts_player_id ON contracts(player_id);
+CREATE INDEX idx_contracts_club_id ON contracts(club_id);
+CREATE INDEX idx_transfers_player_id ON transfers(player_id);
+CREATE INDEX idx_transfers_from_club_id ON transfers(from_club_id);
+CREATE INDEX idx_transfers_to_club_id ON transfers(to_club_id);
+CREATE INDEX idx_injuries_player_id ON injuries(player_id);
+CREATE INDEX idx_orders_user_id ON orders(user_id);
+CREATE INDEX idx_order_items_order_id ON order_items(order_id);
+CREATE INDEX idx_order_items_product_id ON order_items(product_id);
+CREATE INDEX idx_tickets_game_id ON tickets(game_id);
+CREATE INDEX idx_tickets_user_id ON tickets(user_id);
+CREATE INDEX idx_tickets_order_id ON tickets(order_id);
+CREATE INDEX idx_posts_author_id ON posts(author_id);
+CREATE INDEX idx_posts_club_id ON posts(club_id);
+CREATE INDEX idx_comments_post_id ON comments(post_id);
+CREATE INDEX idx_comments_author_id ON comments(author_id);
+CREATE INDEX idx_comments_parent_comment_id ON comments(parent_comment_id);
+CREATE INDEX idx_expenses_club_id ON expenses(club_id);

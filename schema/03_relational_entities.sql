@@ -306,3 +306,36 @@ CREATE TABLE tournaments (
     deleted_at TIMESTAMPTZ
 );
 ALTER TABLE tournaments ENABLE ROW LEVEL SECURITY;
+
+-- Indexes for foreign keys
+CREATE INDEX idx_federations_organization_id ON federations(organization_id);
+CREATE INDEX idx_federations_region_id ON federations(region_id);
+CREATE INDEX idx_rinks_arena_id ON rinks(arena_id);
+CREATE INDEX idx_clubs_organization_id ON clubs(organization_id);
+CREATE INDEX idx_clubs_federation_id ON clubs(federation_id);
+CREATE INDEX idx_clubs_home_arena_id ON clubs(home_arena_id);
+CREATE INDEX idx_leagues_federation_id ON leagues(federation_id);
+CREATE INDEX idx_leagues_age_category_id ON leagues(age_category_id);
+CREATE INDEX idx_teams_club_id ON teams(club_id);
+CREATE INDEX idx_teams_league_id ON teams(league_id);
+CREATE INDEX idx_teams_home_arena_id ON teams(home_arena_id);
+CREATE INDEX idx_players_person_id ON players(person_id);
+CREATE INDEX idx_players_nationality_id ON players(nationality_id);
+CREATE INDEX idx_coaches_person_id ON coaches(person_id);
+CREATE INDEX idx_staff_person_id ON staff(person_id);
+CREATE INDEX idx_users_person_id ON users(person_id);
+CREATE INDEX idx_products_category_id ON products(category_id);
+CREATE INDEX idx_products_brand_id ON products(brand_id);
+CREATE INDEX idx_products_club_id ON products(club_id);
+CREATE INDEX idx_sponsors_organization_id ON sponsors(organization_id);
+CREATE INDEX idx_officials_person_id ON officials(person_id);
+CREATE INDEX idx_officials_federation_id ON officials(federation_id);
+CREATE INDEX idx_agents_person_id ON agents(person_id);
+CREATE INDEX idx_agencies_organization_id ON agencies(organization_id);
+CREATE INDEX idx_youth_academies_club_id ON youth_academies(club_id);
+CREATE INDEX idx_youth_academies_director_id ON youth_academies(director_id);
+CREATE INDEX idx_divisions_league_id ON divisions(league_id);
+CREATE INDEX idx_conferences_league_id ON conferences(league_id);
+CREATE INDEX idx_tournaments_host_club_id ON tournaments(host_club_id);
+CREATE INDEX idx_teams_captain_id ON teams(captain_id);
+CREATE INDEX idx_teams_head_coach_id ON teams(head_coach_id);
