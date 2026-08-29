@@ -4,9 +4,11 @@ This document contains an extensive, Supabase-compatible (`snake_case`) list of 
 
 The tables include functional tags to indicate their primary domain.
 
-## 1. Core Entities & Infrastructure
-*Foundational data for the hockey ecosystem.*
+## 1. Core Entities & Infrastructure (The Party Model)
+*Foundational data for the hockey ecosystem. We use a central 'Party Model' for persons and organizations.*
 
+- `persons` [Core] (Central record for a human: Name, DOB. Links to players, coaches, fans)
+- `organizations` [Core] (Central record for entities: Clubs, federations, sponsors)
 - `federations` [Core]
 - `clubs` [Core]
 - `teams` [Core]
@@ -20,6 +22,7 @@ The tables include functional tags to indicate their primary domain.
 - `regions` [Core]
 - `affiliations` [Core]
 - `club_hierarchies` [Core]
+- `external_links` [Core] (To store mappings to external databases like IJshockey Nederland IDs)
 
 ## 2. Player Profiles, Demographics & Attributes
 *Expanded player data inspired by Elite Prospects, HockeyDB, and video game simulation mechanics.*
@@ -199,8 +202,8 @@ The tables include functional tags to indicate their primary domain.
 - `concussion_protocols` [Medical]
 - `treatment_logs` [Medical]
 
-## 11. Facilities & Maintenance
-*Arena operations and equipment.*
+## 11. Facilities, Maintenance & Player Equipment
+*Arena operations, general equipment, and specific player gear tracking.*
 
 - `locker_rooms` [Facilities]
 - `locker_assignments` [Facilities]
@@ -211,6 +214,10 @@ The tables include functional tags to indicate their primary domain.
 - `equipment_repairs` [Facilities]
 - `skate_sharpening_logs` [Facilities]
 - `safety_inspections` [Facilities]
+- `player_sticks` [Equipment] (Brand, model, year, condition, flex, curve, color, weight, length, composition, age category)
+- `stick_performance_logs` [Equipment] (Tracks degradation over time based on activity/level)
+- `player_skates` [Equipment]
+- `player_protective_gear` [Equipment]
 
 ## 12. Social, Community & Networking
 *Social network features for fans, players, and clubs.*
