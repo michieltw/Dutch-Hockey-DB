@@ -101,6 +101,7 @@ The tables include functional tags to indicate their primary domain.
 - `goaltender_stats` [Live Scoring]
 - `player_game_stats` [Live Scoring]
 - `team_game_stats` [Live Scoring]
+- `unified_game_events` [Live Scoring]
 
 ## 6. Advanced Stats & Tracking Analytics
 *Granular statistics, advanced metrics, and physics tracking data (inspired by NHL EDGE).*
@@ -167,6 +168,7 @@ The tables include functional tags to indicate their primary domain.
 
 - `sponsors` [Management]
 - `sponsorship_deals` [Management]
+- `sponsorships` [Management]
 - `advertising_inventory` [Management]
 - `club_finances` [Management]
 - `invoices` [Management]
@@ -273,6 +275,7 @@ The tables include functional tags to indicate their primary domain.
 - `achievements` [Gamification]
 - `badges` [Gamification]
 - `user_achievements` [Gamification]
+- `player_achievements` [Gamification]
 - `points_ledger` [Gamification]
 - `leaderboards` [Gamification]
 - `quests` [Gamification]
