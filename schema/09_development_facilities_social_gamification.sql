@@ -1,5 +1,5 @@
 -- 09_development_facilities_social_gamification.sql
--- Player Development, Medical, Facilities, Equipment, Social, Gamification, Media
+-- Player Development, Facilities, Equipment, Social, Gamification, Media
 
 -- 1. training_sessions
 CREATE TABLE training_sessions (
