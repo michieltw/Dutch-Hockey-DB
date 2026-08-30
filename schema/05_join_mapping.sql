@@ -93,20 +93,6 @@ CREATE TABLE club_memberships (
 );
 ALTER TABLE club_memberships ENABLE ROW LEVEL SECURITY;
 
--- 7. fantasy_rosters (Gamification)
-CREATE TABLE fantasy_rosters (
-    id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
-    ini_code VARCHAR(4) DEFAULT 'FROST',
-    user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
-    player_id UUID NOT NULL REFERENCES players(id) ON DELETE CASCADE,
-    league_id UUID REFERENCES leagues(id) ON DELETE CASCADE,
-    season_id UUID REFERENCES seasons(id) ON DELETE CASCADE,
-    is_active BOOLEAN DEFAULT TRUE,
-    created_at TIMESTAMPTZ DEFAULT NOW(),
-    updated_at TIMESTAMPTZ,
-    deleted_at TIMESTAMPTZ
-);
-ALTER TABLE fantasy_rosters ENABLE ROW LEVEL SECURITY;
 
 -- 8. volunteer_assignments (Game Day Operations)
 CREATE TABLE volunteer_assignments (
@@ -219,10 +205,6 @@ CREATE INDEX idx_starting_lineups_team_id ON starting_lineups(team_id);
 CREATE INDEX idx_starting_lineups_player_id ON starting_lineups(player_id);
 CREATE INDEX idx_club_memberships_user_id ON club_memberships(user_id);
 CREATE INDEX idx_club_memberships_club_id ON club_memberships(club_id);
-CREATE INDEX idx_fantasy_rosters_user_id ON fantasy_rosters(user_id);
-CREATE INDEX idx_fantasy_rosters_player_id ON fantasy_rosters(player_id);
-CREATE INDEX idx_fantasy_rosters_league_id ON fantasy_rosters(league_id);
-CREATE INDEX idx_fantasy_rosters_season_id ON fantasy_rosters(season_id);
 CREATE INDEX idx_volunteer_assignments_person_id ON volunteer_assignments(person_id);
 CREATE INDEX idx_volunteer_assignments_game_id ON volunteer_assignments(game_id);
 CREATE INDEX idx_player_achievements_player_id ON player_achievements(player_id);

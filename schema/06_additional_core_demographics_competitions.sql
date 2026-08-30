@@ -147,33 +147,7 @@ CREATE TABLE player_roles (
 );
 ALTER TABLE player_roles ENABLE ROW LEVEL SECURITY;
 
--- 11. player_morale
-CREATE TABLE player_morale (
-    id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
-    ini_code VARCHAR(4) DEFAULT 'PLMO',
-    player_id UUID NOT NULL REFERENCES players(id) ON DELETE CASCADE,
-    morale_score INTEGER CHECK (morale_score BETWEEN 1 AND 100),
-    last_updated DATE,
-    notes TEXT,
-    created_at TIMESTAMPTZ DEFAULT NOW(),
-    updated_at TIMESTAMPTZ,
-    deleted_at TIMESTAMPTZ
-);
-ALTER TABLE player_morale ENABLE ROW LEVEL SECURITY;
 
--- 12. line_chemistry
-CREATE TABLE line_chemistry (
-    id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
-    ini_code VARCHAR(4) DEFAULT 'LICH',
-    team_id UUID NOT NULL REFERENCES teams(id) ON DELETE CASCADE,
-    player1_id UUID NOT NULL REFERENCES players(id) ON DELETE CASCADE,
-    player2_id UUID NOT NULL REFERENCES players(id) ON DELETE CASCADE,
-    chemistry_score INTEGER CHECK (chemistry_score BETWEEN 1 AND 100),
-    created_at TIMESTAMPTZ DEFAULT NOW(),
-    updated_at TIMESTAMPTZ,
-    deleted_at TIMESTAMPTZ
-);
-ALTER TABLE line_chemistry ENABLE ROW LEVEL SECURITY;
 
 -- 13. cups
 CREATE TABLE cups (
@@ -424,10 +398,6 @@ CREATE INDEX idx_national_team_selections_nationality_id ON national_team_select
 CREATE INDEX idx_national_team_selections_tournament_id ON national_team_selections(tournament_id);
 CREATE INDEX idx_player_attributes_player_id ON player_attributes(player_id);
 CREATE INDEX idx_player_attributes_evaluator_id ON player_attributes(evaluator_id);
-CREATE INDEX idx_player_morale_player_id ON player_morale(player_id);
-CREATE INDEX idx_line_chemistry_team_id ON line_chemistry(team_id);
-CREATE INDEX idx_line_chemistry_player1_id ON line_chemistry(player1_id);
-CREATE INDEX idx_line_chemistry_player2_id ON line_chemistry(player2_id);
 CREATE INDEX idx_cups_federation_id ON cups(federation_id);
 CREATE INDEX idx_phases_tournament_id ON phases(tournament_id);
 CREATE INDEX idx_series_phase_id ON series(phase_id);

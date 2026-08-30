@@ -287,88 +287,6 @@ CREATE TABLE rewards (
 );
 ALTER TABLE rewards ENABLE ROW LEVEL SECURITY;
 
--- 22. fantasy_leagues
-CREATE TABLE fantasy_leagues (
-    id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
-    ini_code VARCHAR(4) DEFAULT 'FLEA',
-    name VARCHAR(100),
-    creator_id UUID REFERENCES users(id) ON DELETE SET NULL,
-    season_id UUID REFERENCES seasons(id) ON DELETE CASCADE,
-    created_at TIMESTAMPTZ DEFAULT NOW(),
-    updated_at TIMESTAMPTZ,
-    deleted_at TIMESTAMPTZ
-);
-ALTER TABLE fantasy_leagues ENABLE ROW LEVEL SECURITY;
-
--- 23. fantasy_teams
-CREATE TABLE fantasy_teams (
-    id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
-    ini_code VARCHAR(4) DEFAULT 'FTEA',
-    league_id UUID NOT NULL REFERENCES fantasy_leagues(id) ON DELETE CASCADE,
-    owner_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
-    name VARCHAR(100),
-    created_at TIMESTAMPTZ DEFAULT NOW(),
-    updated_at TIMESTAMPTZ,
-    deleted_at TIMESTAMPTZ
-);
-ALTER TABLE fantasy_teams ENABLE ROW LEVEL SECURITY;
-
--- 24. fantasy_drafts
-CREATE TABLE fantasy_drafts (
-    id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
-    ini_code VARCHAR(4) DEFAULT 'FDRA',
-    league_id UUID NOT NULL REFERENCES fantasy_leagues(id) ON DELETE CASCADE,
-    draft_date TIMESTAMPTZ,
-    status VARCHAR(50),
-    created_at TIMESTAMPTZ DEFAULT NOW(),
-    updated_at TIMESTAMPTZ,
-    deleted_at TIMESTAMPTZ
-);
-ALTER TABLE fantasy_drafts ENABLE ROW LEVEL SECURITY;
-
--- 25. fantasy_matchups
-CREATE TABLE fantasy_matchups (
-    id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
-    ini_code VARCHAR(4) DEFAULT 'FMAT',
-    league_id UUID NOT NULL REFERENCES fantasy_leagues(id) ON DELETE CASCADE,
-    team1_id UUID NOT NULL REFERENCES fantasy_teams(id) ON DELETE CASCADE,
-    team2_id UUID NOT NULL REFERENCES fantasy_teams(id) ON DELETE CASCADE,
-    week_number INTEGER,
-    team1_score NUMERIC(5, 2) DEFAULT 0,
-    team2_score NUMERIC(5, 2) DEFAULT 0,
-    created_at TIMESTAMPTZ DEFAULT NOW(),
-    updated_at TIMESTAMPTZ,
-    deleted_at TIMESTAMPTZ
-);
-ALTER TABLE fantasy_matchups ENABLE ROW LEVEL SECURITY;
-
--- 26. fantasy_scoring_rules
-CREATE TABLE fantasy_scoring_rules (
-    id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
-    ini_code VARCHAR(4) DEFAULT 'FSCR',
-    league_id UUID NOT NULL REFERENCES fantasy_leagues(id) ON DELETE CASCADE,
-    action VARCHAR(50), -- 'Goal', 'Assist'
-    points_awarded NUMERIC(5, 2),
-    created_at TIMESTAMPTZ DEFAULT NOW(),
-    updated_at TIMESTAMPTZ,
-    deleted_at TIMESTAMPTZ
-);
-ALTER TABLE fantasy_scoring_rules ENABLE ROW LEVEL SECURITY;
-
--- 27. fantasy_transactions
-CREATE TABLE fantasy_transactions (
-    id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
-    ini_code VARCHAR(4) DEFAULT 'FTRA',
-    team_id UUID NOT NULL REFERENCES fantasy_teams(id) ON DELETE CASCADE,
-    player_id UUID NOT NULL REFERENCES players(id) ON DELETE CASCADE,
-    transaction_type VARCHAR(50), -- 'Add', 'Drop', 'Trade'
-    transaction_date TIMESTAMPTZ DEFAULT NOW(),
-    created_at TIMESTAMPTZ DEFAULT NOW(),
-    updated_at TIMESTAMPTZ,
-    deleted_at TIMESTAMPTZ
-);
-ALTER TABLE fantasy_transactions ENABLE ROW LEVEL SECURITY;
-
 -- 28. predictions
 CREATE TABLE predictions (
     id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
@@ -724,17 +642,6 @@ CREATE INDEX idx_seats_row_id ON seats(row_id);
 CREATE INDEX idx_user_achievements_user_id ON user_achievements(user_id);
 CREATE INDEX idx_user_achievements_achievement_id ON user_achievements(achievement_id);
 CREATE INDEX idx_points_ledger_user_id ON points_ledger(user_id);
-CREATE INDEX idx_fantasy_leagues_creator_id ON fantasy_leagues(creator_id);
-CREATE INDEX idx_fantasy_leagues_season_id ON fantasy_leagues(season_id);
-CREATE INDEX idx_fantasy_teams_league_id ON fantasy_teams(league_id);
-CREATE INDEX idx_fantasy_teams_owner_id ON fantasy_teams(owner_id);
-CREATE INDEX idx_fantasy_drafts_league_id ON fantasy_drafts(league_id);
-CREATE INDEX idx_fantasy_matchups_league_id ON fantasy_matchups(league_id);
-CREATE INDEX idx_fantasy_matchups_team1_id ON fantasy_matchups(team1_id);
-CREATE INDEX idx_fantasy_matchups_team2_id ON fantasy_matchups(team2_id);
-CREATE INDEX idx_fantasy_scoring_rules_league_id ON fantasy_scoring_rules(league_id);
-CREATE INDEX idx_fantasy_transactions_team_id ON fantasy_transactions(team_id);
-CREATE INDEX idx_fantasy_transactions_player_id ON fantasy_transactions(player_id);
 CREATE INDEX idx_predictions_game_id ON predictions(game_id);
 CREATE INDEX idx_predictions_user_id ON predictions(user_id);
 CREATE INDEX idx_predictions_predicted_winner_id ON predictions(predicted_winner_id);

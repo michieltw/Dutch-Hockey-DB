@@ -39,8 +39,6 @@ The tables include functional tags to indicate their primary domain.
 - `national_team_selections` [Demographics]
 - `player_attributes` [Scouting] (Granular skills: speed, checking, awareness)
 - `player_roles` [Scouting] (e.g., Sniper, Playmaker, Grinder, Two-Way)
-- `player_morale` [Simulation/Fantasy]
-- `line_chemistry` [Simulation/Fantasy]
 
 ## 3. Competitions, Leagues & Rosters
 *Structure of leagues, tournaments, and specific local roster rules (e.g., IJshockey Nederland age dispensations).*
@@ -264,8 +262,8 @@ The tables include functional tags to indicate their primary domain.
 - `rows` [Ticketing]
 - `seats` [Ticketing]
 
-## 14. Gamification & Fantasy
-*Interactive features, fan engagement, and fantasy hockey.*
+## 14. Gamification
+*Interactive features and fan engagement.*
 
 - `achievements` [Gamification]
 - `badges` [Gamification]
@@ -275,13 +273,6 @@ The tables include functional tags to indicate their primary domain.
 - `leaderboards` [Gamification]
 - `quests` [Gamification]
 - `rewards` [Gamification]
-- `fantasy_leagues` [Gamification]
-- `fantasy_teams` [Gamification]
-- `fantasy_drafts` [Gamification]
-- `fantasy_rosters` [Gamification]
-- `fantasy_matchups` [Gamification]
-- `fantasy_scoring_rules` [Gamification]
-- `fantasy_transactions` [Gamification]
 - `predictions` [Gamification]
 - `prediction_results` [Gamification]
 - `trivia_questions` [Gamification]
