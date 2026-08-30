@@ -22,6 +22,7 @@ The tables include functional tags to indicate their primary domain.
 - `regions` [Core]
 - `affiliations` [Core]
 - `club_hierarchies` [Core]
+- `staff_history` [Core] (Career progression across clubs/seasons)
 - `external_links` [Core] (To store mappings to external databases like IJshockey Nederland IDs)
 
 ## 2. Player Profiles, Demographics & Attributes
@@ -39,6 +40,9 @@ The tables include functional tags to indicate their primary domain.
 - `national_team_selections` [Demographics]
 - `player_attributes` [Scouting] (Granular skills: speed, checking, awareness)
 - `player_roles` [Scouting] (e.g., Sniper, Playmaker, Grinder, Two-Way)
+- `staff_attributes` [Scouting] (e.g., Coaching Goaltenders, Judging Potential)
+- `person_preferences` [Scouting] (Favourite/Disliked clubs, staff, players)
+- `player_info` [Scouting] (Accrued seasons, milestones for North American rules)
 
 ## 3. Competitions, Leagues & Rosters
 *Structure of leagues, tournaments, and specific local roster rules (e.g., IJshockey Nederland age dispensations).*
@@ -146,6 +150,7 @@ The tables include functional tags to indicate their primary domain.
 - `transfers` [Administration]
 - `transfer_rules` [Administration]
 - `transfer_rumors` [Administration] (Elite Prospects style)
+- `player_rights` [Administration] (Rights retained by clubs/leagues, e.g., Draft rights)
 - `contracts` [Administration]
 - `contract_clauses` [Administration] (NMC, NTC)
 - `salaries` [Administration]
@@ -304,3 +309,4 @@ The tables include functional tags to indicate their primary domain.
 - `award_winners` [History]
 - `historical_records` [History] (e.g., most goals in a season)
 - `championship_banners` [History]
+- `retired_numbers` [History]
