@@ -26,3 +26,23 @@ INSERT INTO nationalities (id, name, iso_code) VALUES
 (gen_random_uuid(), 'Slovakia', 'SVK'),
 (gen_random_uuid(), 'Russia', 'RUS'),
 (gen_random_uuid(), 'Latvia', 'LVA');
+
+INSERT INTO nationalities (id, name, iso_code) VALUES
+(gen_random_uuid(), 'Austria', 'AUT'),
+(gen_random_uuid(), 'Denmark', 'DNK'),
+(gen_random_uuid(), 'France', 'FRA'),
+(gen_random_uuid(), 'Norway', 'NOR'),
+(gen_random_uuid(), 'Great Britain', 'GBR'),
+(gen_random_uuid(), 'Kazakhstan', 'KAZ'),
+(gen_random_uuid(), 'Belarus', 'BLR'),
+(gen_random_uuid(), 'Italy', 'ITA'),
+(gen_random_uuid(), 'Slovenia', 'SVN'),
+(gen_random_uuid(), 'Hungary', 'HUN'),
+(gen_random_uuid(), 'Poland', 'POL'),
+(gen_random_uuid(), 'Japan', 'JPN'),
+(gen_random_uuid(), 'Ukraine', 'UKR'),
+(gen_random_uuid(), 'South Korea', 'KOR'),
+(gen_random_uuid(), 'China', 'CHN'),
+(gen_random_uuid(), 'Romania', 'ROU'),
+(gen_random_uuid(), 'Lithuania', 'LTU'),
+(gen_random_uuid(), 'Estonia', 'EST');
