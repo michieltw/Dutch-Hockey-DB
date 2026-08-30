@@ -27,8 +27,8 @@ This document outlines a comprehensive, highly-structured database schema for se
   - `is_allowed` BOOLEAN
   - *Standard Timestamps & Soft Deletes*
 
-## 2. User & App Settings
-*Configuration for general application behavior and manager-specific preferences.*
+## 2. User, Profile & Onboarding Settings
+*Configuration for general application behavior, rich public profiles, and first-time setup flows.*
 
 - **`user_app_settings`**
   - `id` UUID PK
@@ -41,6 +41,27 @@ This document outlines a comprehensive, highly-structured database schema for se
   - `visibility` profile_visibility_enum
   - *Standard Timestamps & Soft Deletes*
 
+- **`user_profile_settings`**
+  *Detailed public-facing configurations for users and fans.*
+  - `id` UUID PK
+  - `user_id` UUID FK (Unique)
+  - `avatar_url` VARCHAR
+  - `cover_photo_url` VARCHAR
+  - `bio` TEXT
+  - `favorite_team_id` UUID FK
+  - `favorite_player_id` UUID FK
+  - `show_achievements` BOOLEAN
+  - *Standard Timestamps & Soft Deletes*
+
+- **`user_connected_accounts`**
+  *SSO and social media linking.*
+  - `id` UUID PK
+  - `user_id` UUID FK
+  - `provider` provider_enum (e.g., 'Google', 'Apple', 'Facebook', 'X')
+  - `provider_account_id` VARCHAR
+  - `sync_avatar` BOOLEAN
+  - *Standard Timestamps & Soft Deletes*
+
 - **`manager_preferences`**
   - `id` UUID PK
   - `user_id` UUID FK (Unique)
@@ -51,7 +72,53 @@ This document outlines a comprehensive, highly-structured database schema for se
   - `default_contract_length` INT
   - *Standard Timestamps & Soft Deletes*
 
-## 3. League & Competition Settings
+- **`onboarding_tracking`**
+  *Tracks "first-time setup" progress for Users, Team Managers, and League Managers.*
+  - `id` UUID PK
+  - `user_id` UUID FK
+  - `role` user_role_enum
+  - `has_completed_welcome` BOOLEAN
+  - `has_configured_profile` BOOLEAN
+  - `has_setup_team` BOOLEAN (For Team Managers)
+  - `has_setup_league_rules` BOOLEAN (For League Managers)
+  - `completed_at` TIMESTAMPTZ
+  - *Standard Timestamps & Soft Deletes*
+
+## 3. Team Configurations & Branding
+*Deep customization for individual teams, including aesthetics, strategies, and game-day ops.*
+
+- **`team_branding_settings`**
+  - `id` UUID PK
+  - `team_id` UUID FK (Unique)
+  - `primary_color_hex` VARCHAR
+  - `secondary_color_hex` VARCHAR
+  - `tertiary_color_hex` VARCHAR
+  - `jersey_home_image_url` VARCHAR
+  - `jersey_away_image_url` VARCHAR
+  - `goal_horn_audio_url` VARCHAR
+  - *Standard Timestamps & Soft Deletes*
+
+- **`team_strategy_settings`**
+  - `id` UUID PK
+  - `team_id` UUID FK (Unique)
+  - `default_offensive_scheme` offensive_scheme_enum (e.g., 'Dump & Chase', 'Overload')
+  - `default_defensive_scheme` defensive_scheme_enum (e.g., '1-3-1', 'Left Lock')
+  - `powerplay_formation` pp_formation_enum (e.g., 'Umbrella', '1-3-1')
+  - `penalty_kill_formation` pk_formation_enum (e.g., 'Box', 'Diamond')
+  - *Standard Timestamps & Soft Deletes*
+
+- **`team_operations_settings`**
+  - `id` UUID PK
+  - `team_id` UUID FK (Unique)
+  - `home_arena_override_id` UUID FK (If different from the Club's default arena)
+  - `notify_staff_on_injury` BOOLEAN
+  - `notify_staff_on_trade_offer` BOOLEAN
+  - `social_media_auto_post_final_score` BOOLEAN
+  - `x_handle` VARCHAR
+  - `instagram_handle` VARCHAR
+  - *Standard Timestamps & Soft Deletes*
+
+## 4. League & Competition Settings
 *Highly detailed configurations for how a league operates, spanning real-life gameplay rules to NA/EU structural differences.*
 
 - **`league_game_rules_settings`**
@@ -109,7 +176,7 @@ This document outlines a comprehensive, highly-structured database schema for se
   - `allow_international_transfers` BOOLEAN
   - *Standard Timestamps & Soft Deletes*
 
-## 4. Draft Settings
+## 5. Draft Settings
 *Detailed setups for North American style drafts or European academy structures.*
 
 - **`draft_settings`**
@@ -133,7 +200,7 @@ This document outlines a comprehensive, highly-structured database schema for se
   - `max_spots_moved_up` INT
   - *Standard Timestamps & Soft Deletes*
 
-## 5. Tournament & Event Settings
+## 6. Tournament & Event Settings
 *Configurations for specific tournaments, playoffs, and pre-game setups.*
 
 - **`tournament_settings`**
@@ -156,7 +223,7 @@ This document outlines a comprehensive, highly-structured database schema for se
   - `starting_lineup_announcement_required` BOOLEAN
   - *Standard Timestamps & Soft Deletes*
 
-## 6. Gamification & Social Settings
+## 7. Gamification & Social Settings
 *Settings to toggle social and gamified interactive elements around the real-life management.*
 
 - **`gamification_settings`**
@@ -175,13 +242,18 @@ This document outlines a comprehensive, highly-structured database schema for se
   - `share_activity_feed` BOOLEAN
   - *Standard Timestamps & Soft Deletes*
 
-## 7. Proposed Enums to Support Settings
+## 8. Proposed Enums to Support Settings
 
 To be appended or added alongside the enums in `individual_schemas/00_enums.sql`:
 
 ```sql
 CREATE TYPE theme_enum AS ENUM ('Light', 'Dark', 'System');
+CREATE TYPE provider_enum AS ENUM ('Google', 'Apple', 'Facebook', 'X', 'Microsoft');
 CREATE TYPE profile_visibility_enum AS ENUM ('Public', 'Friends Only', 'Private');
+CREATE TYPE offensive_scheme_enum AS ENUM ('Dump & Chase', 'Overload', 'Crash the Net', 'Behind the Net');
+CREATE TYPE defensive_scheme_enum AS ENUM ('1-3-1', '1-2-2', 'Left Wing Lock', 'High Press');
+CREATE TYPE pp_formation_enum AS ENUM ('Umbrella', '1-3-1', 'Overload', 'Two-Man Advantage');
+CREATE TYPE pk_formation_enum AS ENUM ('Box', 'Diamond', 'Wedge', 'Passive Box');
 CREATE TYPE overtime_format_enum AS ENUM ('3v3', '4v4', '5v5', 'Continuous 5v5', 'None');
 CREATE TYPE icing_rule_enum AS ENUM ('Touch', 'No-Touch', 'Hybrid');
 CREATE TYPE transfer_window_type_enum AS ENUM ('Off-season', 'Mid-season', 'Emergency');
