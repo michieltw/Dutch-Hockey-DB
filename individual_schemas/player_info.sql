@@ -1,0 +1,31 @@
+-- player_info
+CREATE TABLE player_info (
+    id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+    ini_code VARCHAR(4) DEFAULT 'PLIN',
+    player_id UUID NOT NULL REFERENCES players(id) ON DELETE CASCADE,
+    club_games_played INTEGER DEFAULT 0,
+    club_goals INTEGER DEFAULT 0,
+    club_assists INTEGER DEFAULT 0,
+    club_pim INTEGER DEFAULT 0,
+    club_wins INTEGER DEFAULT 0,
+    club_shutouts INTEGER DEFAULT 0,
+    league_total_games_played INTEGER DEFAULT 0,
+    league_total_goals INTEGER DEFAULT 0,
+    league_total_assists INTEGER DEFAULT 0,
+    league_total_pim INTEGER DEFAULT 0,
+    league_total_wins INTEGER DEFAULT 0,
+    league_total_shutouts INTEGER DEFAULT 0,
+    professional_games_played_regular_season INTEGER DEFAULT 0,
+    professional_games_played_playoff INTEGER DEFAULT 0,
+    professional_nhl_games_played INTEGER DEFAULT 0,
+    canadian_junior_games_played INTEGER DEFAULT 0,
+    nhl_seasons_accrued INTEGER DEFAULT 0,
+    professional_seasons_accrued INTEGER DEFAULT 0,
+    canadian_major_junior_seasons INTEGER DEFAULT 0,
+    has_played_in_college BOOLEAN DEFAULT FALSE,
+    has_played_in_north_america_as_junior BOOLEAN DEFAULT FALSE,
+    created_at TIMESTAMPTZ DEFAULT NOW(),
+    updated_at TIMESTAMPTZ,
+    deleted_at TIMESTAMPTZ
+);
+ALTER TABLE player_info ENABLE ROW LEVEL SECURITY;
