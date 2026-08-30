@@ -17,13 +17,13 @@ ALTER TABLE clubs ENABLE ROW LEVEL SECURITY;
 
 -- Data for clubs
 INSERT INTO clubs (id, organization_id, primary_color, secondary_color) VALUES
-(gen_random_uuid(), 'c0000000-0000-0000-0000-000000000001', '#E31837', '#FFFFFF'), -- GIJS Groningen (Red/White)
-(gen_random_uuid(), 'c0000000-0000-0000-0000-000000000002', '#FDB913', '#0033A0'), -- Tilburg Trappers (Yellow/Blue)
-(gen_random_uuid(), 'c0000000-0000-0000-0000-000000000003', '#000000', '#FF0000'), -- UNIS Flyers (Black/Red)
-(gen_random_uuid(), 'c0000000-0000-0000-0000-000000000004', '#E31837', '#000000'), -- Hijs Hokij (Red/Black)
-(gen_random_uuid(), 'c0000000-0000-0000-0000-000000000005', '#E31837', '#FFFFFF'), -- Eaters (Red/White)
-(gen_random_uuid(), 'c0000000-0000-0000-0000-000000000006', '#000000', '#E31837'), -- Devils (Black/Red)
-(gen_random_uuid(), 'c0000000-0000-0000-0000-000000000007', '#0033A0', '#FDB913'), -- Bulldogs (Blue/Yellow)
-(gen_random_uuid(), 'c0000000-0000-0000-0000-000000000008', '#000000', '#FFFFFF'), -- Chiefs (Black/White)
-(gen_random_uuid(), 'c0000000-0000-0000-0000-000000000009', '#0033A0', '#FFFFFF'), -- Phantoms (Blue/White)
-(gen_random_uuid(), 'c0000000-0000-0000-0000-000000000010', '#000000', '#FDB913'); -- Tornado (Black/Yellow)
+(gen_random_uuid(), (SELECT id FROM organizations WHERE name = 'GIJS Groningen'), '#E31837', '#FFFFFF'),
+(gen_random_uuid(), (SELECT id FROM organizations WHERE name = 'Tilburg Trappers'), '#FDB913', '#0033A0'),
+(gen_random_uuid(), (SELECT id FROM organizations WHERE name = 'UNIS Flyers Heerenveen'), '#000000', '#FF0000'),
+(gen_random_uuid(), (SELECT id FROM organizations WHERE name = 'Hijs Hokij Den Haag'), '#E31837', '#000000'),
+(gen_random_uuid(), (SELECT id FROM organizations WHERE name = 'Snackpoint Eaters Limburg'), '#E31837', '#FFFFFF'),
+(gen_random_uuid(), (SELECT id FROM organizations WHERE name = 'Nijmegen Devils'), '#000000', '#E31837'),
+(gen_random_uuid(), (SELECT id FROM organizations WHERE name = 'Bulldogs Liège'), '#0033A0', '#FDB913'),
+(gen_random_uuid(), (SELECT id FROM organizations WHERE name = 'Chiefs Leuven'), '#000000', '#FFFFFF'),
+(gen_random_uuid(), (SELECT id FROM organizations WHERE name = 'Phantoms Antwerp'), '#0033A0', '#FFFFFF'),
+(gen_random_uuid(), (SELECT id FROM organizations WHERE name = 'Tornado Luxembourg'), '#000000', '#FDB913');

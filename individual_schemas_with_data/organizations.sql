@@ -26,20 +26,27 @@ ALTER TABLE organizations ENABLE ROW LEVEL SECURITY;
 -- Initial Data for organizations (Federations)
 -- Need to insert organizations first to reference them in federations
 INSERT INTO organizations (id, organization_type, name, abbreviation, website_url, country) VALUES
-('f0000000-0000-0000-0000-000000000001', 'Federation', 'IJshockey Nederland', 'IJNL', 'https://www.ijshockeynederland.nl', 'Netherlands'),
-('f0000000-0000-0000-0000-000000000002', 'Federation', 'Royal Belgian Ice Hockey Federation', 'RBIHF', 'https://www.rbihf.be', 'Belgium'),
-('f0000000-0000-0000-0000-000000000003', 'Federation', 'Fédération Luxembourgeoise de Hockey sur Glace', 'FLHG', 'http://www.icehockey.lu/', 'Luxembourg'),
-('f0000000-0000-0000-0000-000000000004', 'Federation', 'International Ice Hockey Federation', 'IIHF', 'https://www.iihf.com', 'Switzerland');
+(gen_random_uuid(), 'Federation', 'IJshockey Nederland', 'IJNL', 'https://www.ijshockeynederland.nl', 'Netherlands'),
+(gen_random_uuid(), 'Federation', 'Royal Belgian Ice Hockey Federation', 'RBIHF', 'https://www.rbihf.be', 'Belgium'),
+(gen_random_uuid(), 'Federation', 'Fédération Luxembourgeoise de Hockey sur Glace', 'FLHG', 'http://www.icehockey.lu/', 'Luxembourg'),
+(gen_random_uuid(), 'Federation', 'International Ice Hockey Federation', 'IIHF', 'https://www.iihf.com', 'Switzerland');
 
 -- Initial Data for organizations (Clubs in Benelux)
 INSERT INTO organizations (id, organization_type, name, abbreviation, city, country) VALUES
-('c0000000-0000-0000-0000-000000000001', 'Club', 'GIJS Groningen', 'GIJS', 'Groningen', 'Netherlands'),
-('c0000000-0000-0000-0000-000000000002', 'Club', 'Tilburg Trappers', 'TIL', 'Tilburg', 'Netherlands'),
-('c0000000-0000-0000-0000-000000000003', 'Club', 'UNIS Flyers Heerenveen', 'HEE', 'Heerenveen', 'Netherlands'),
-('c0000000-0000-0000-0000-000000000004', 'Club', 'Hijs Hokij Den Haag', 'DHG', 'The Hague', 'Netherlands'),
-('c0000000-0000-0000-0000-000000000005', 'Club', 'Snackpoint Eaters Limburg', 'GEE', 'Geleen', 'Netherlands'),
-('c0000000-0000-0000-0000-000000000006', 'Club', 'Nijmegen Devils', 'NIJ', 'Nijmegen', 'Netherlands'),
-('c0000000-0000-0000-0000-000000000007', 'Club', 'Bulldogs Liège', 'LIE', 'Liège', 'Belgium'),
-('c0000000-0000-0000-0000-000000000008', 'Club', 'Chiefs Leuven', 'LEU', 'Leuven', 'Belgium'),
-('c0000000-0000-0000-0000-000000000009', 'Club', 'Phantoms Antwerp', 'ANT', 'Antwerp', 'Belgium'),
-('c0000000-0000-0000-0000-000000000010', 'Club', 'Tornado Luxembourg', 'TOR', 'Kockelscheuer', 'Luxembourg');
+(gen_random_uuid(), 'Club', 'GIJS Groningen', 'GIJS', 'Groningen', 'Netherlands'),
+(gen_random_uuid(), 'Club', 'Tilburg Trappers', 'TIL', 'Tilburg', 'Netherlands'),
+(gen_random_uuid(), 'Club', 'UNIS Flyers Heerenveen', 'HEE', 'Heerenveen', 'Netherlands'),
+(gen_random_uuid(), 'Club', 'Hijs Hokij Den Haag', 'DHG', 'The Hague', 'Netherlands'),
+(gen_random_uuid(), 'Club', 'Snackpoint Eaters Limburg', 'GEE', 'Geleen', 'Netherlands'),
+(gen_random_uuid(), 'Club', 'Nijmegen Devils', 'NIJ', 'Nijmegen', 'Netherlands'),
+(gen_random_uuid(), 'Club', 'Bulldogs Liège', 'LIE', 'Liège', 'Belgium'),
+(gen_random_uuid(), 'Club', 'Chiefs Leuven', 'LEU', 'Leuven', 'Belgium'),
+(gen_random_uuid(), 'Club', 'Phantoms Antwerp', 'ANT', 'Antwerp', 'Belgium'),
+(gen_random_uuid(), 'Club', 'Tornado Luxembourg', 'TOR', 'Kockelscheuer', 'Luxembourg');
+
+-- Initial Data for organizations (Retailers / Vendors)
+INSERT INTO organizations (id, organization_type, name, website_url, country) VALUES
+(gen_random_uuid(), 'Vendor', 'IJshockeyshop.nl', 'https://www.ijshockeyshop.nl', 'Netherlands'),
+(gen_random_uuid(), 'Vendor', 'Pro Hockey', 'https://www.prohockey.nl', 'Netherlands'),
+(gen_random_uuid(), 'Vendor', 'Waterman Sport', 'https://www.waterman-sport.nl', 'Netherlands'),
+(gen_random_uuid(), 'Vendor', 'Hockeygear.eu', 'https://www.hockeygear.eu', 'Netherlands');

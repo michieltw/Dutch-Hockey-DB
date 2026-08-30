@@ -13,7 +13,7 @@ ALTER TABLE federations ENABLE ROW LEVEL SECURITY;
 
 -- Data for federations
 INSERT INTO federations (id, organization_id) VALUES
-(gen_random_uuid(), 'f0000000-0000-0000-0000-000000000001'), -- IJshockey Nederland
-(gen_random_uuid(), 'f0000000-0000-0000-0000-000000000002'), -- Royal Belgian Ice Hockey Federation
-(gen_random_uuid(), 'f0000000-0000-0000-0000-000000000003'), -- FLHG
-(gen_random_uuid(), 'f0000000-0000-0000-0000-000000000004'); -- IIHF
+(gen_random_uuid(), (SELECT id FROM organizations WHERE name = 'IJshockey Nederland')),
+(gen_random_uuid(), (SELECT id FROM organizations WHERE name = 'Royal Belgian Ice Hockey Federation')),
+(gen_random_uuid(), (SELECT id FROM organizations WHERE name = 'Fédération Luxembourgeoise de Hockey sur Glace')),
+(gen_random_uuid(), (SELECT id FROM organizations WHERE name = 'International Ice Hockey Federation'));
