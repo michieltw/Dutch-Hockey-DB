@@ -46,3 +46,19 @@ CREATE TYPE ticket_status_enum AS ENUM ('Available', 'Reserved', 'Sold', 'Scanne
 -- Content & Social Enums
 CREATE TYPE media_type_enum AS ENUM ('Image', 'Video', 'Document', 'Audio');
 CREATE TYPE post_status_enum AS ENUM ('Draft', 'Published', 'Archived', 'Deleted');
+
+-- Settings & Configuration Enums
+CREATE TYPE theme_enum AS ENUM ('Light', 'Dark', 'System');
+CREATE TYPE provider_enum AS ENUM ('Google', 'Apple', 'Facebook', 'X', 'Microsoft');
+CREATE TYPE profile_visibility_enum AS ENUM ('Public', 'Friends Only', 'Private');
+CREATE TYPE offensive_scheme_enum AS ENUM ('Dump & Chase', 'Overload', 'Crash the Net', 'Behind the Net');
+CREATE TYPE defensive_scheme_enum AS ENUM ('1-3-1', '1-2-2', 'Left Wing Lock', 'High Press');
+CREATE TYPE pp_formation_enum AS ENUM ('Umbrella', '1-3-1', 'Overload', 'Two-Man Advantage');
+CREATE TYPE pk_formation_enum AS ENUM ('Box', 'Diamond', 'Wedge', 'Passive Box');
+CREATE TYPE overtime_format_enum AS ENUM ('3v3', '4v4', '5v5', 'Continuous 5v5', 'None');
+CREATE TYPE icing_rule_enum AS ENUM ('Touch', 'No-Touch', 'Hybrid');
+CREATE TYPE transfer_window_type_enum AS ENUM ('Off-season', 'Mid-season', 'Emergency');
+CREATE TYPE draft_format_enum AS ENUM ('Standard', 'Snake', 'Auction');
+CREATE TYPE lottery_type_enum AS ENUM ('Weighted', 'Equal', 'Tiered');
+CREATE TYPE tournament_format_enum AS ENUM ('Round Robin', 'Knockout', 'Double Elimination', 'Group Stage to Knockout');
+CREATE TYPE tiebreaker_enum AS ENUM ('Points', 'Regulation Wins', 'Head-to-Head', 'Goal Differential', 'Goals For', 'Coin Toss');
