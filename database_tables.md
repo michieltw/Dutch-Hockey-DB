@@ -310,3 +310,4 @@ The tables include functional tags to indicate their primary domain.
 - `historical_records` [History] (e.g., most goals in a season)
 - `championship_banners` [History]
 - `retired_numbers` [History]
+- `stick_curves` [Equipment] (cdn_url, curve, variant, series, dimensions, similar curves, equivalents)
