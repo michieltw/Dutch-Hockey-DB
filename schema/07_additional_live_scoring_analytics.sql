@@ -33,69 +33,12 @@ CREATE TABLE events (
 ALTER TABLE events ENABLE ROW LEVEL SECURITY;
 
 -- 3. assists
-CREATE TABLE assists (
-    id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
-    ini_code VARCHAR(4) DEFAULT 'ASST',
-    goal_id UUID NOT NULL REFERENCES goals(id) ON DELETE CASCADE,
-    player_id UUID NOT NULL REFERENCES players(id) ON DELETE CASCADE,
-    is_primary BOOLEAN DEFAULT TRUE,
-    created_at TIMESTAMPTZ DEFAULT NOW(),
-    updated_at TIMESTAMPTZ,
-    deleted_at TIMESTAMPTZ
-);
-ALTER TABLE assists ENABLE ROW LEVEL SECURITY;
 
 -- 4. faceoffs
-CREATE TABLE faceoffs (
-    id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
-    ini_code VARCHAR(4) DEFAULT 'FACE',
-    game_id UUID NOT NULL REFERENCES games(id) ON DELETE CASCADE,
-    period_id UUID REFERENCES periods(id) ON DELETE CASCADE,
-    winning_player_id UUID REFERENCES players(id) ON DELETE CASCADE,
-    losing_player_id UUID REFERENCES players(id) ON DELETE CASCADE,
-    zone VARCHAR(20), -- 'Offensive', 'Defensive', 'Neutral'
-    x_coordinate NUMERIC(5, 2),
-    y_coordinate NUMERIC(5, 2),
-    time_elapsed INTERVAL,
-    created_at TIMESTAMPTZ DEFAULT NOW(),
-    updated_at TIMESTAMPTZ,
-    deleted_at TIMESTAMPTZ
-);
-ALTER TABLE faceoffs ENABLE ROW LEVEL SECURITY;
 
 -- 5. hits
-CREATE TABLE hits (
-    id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
-    ini_code VARCHAR(4) DEFAULT 'HITS',
-    game_id UUID NOT NULL REFERENCES games(id) ON DELETE CASCADE,
-    period_id UUID REFERENCES periods(id) ON DELETE CASCADE,
-    hitting_player_id UUID REFERENCES players(id) ON DELETE CASCADE,
-    hit_player_id UUID REFERENCES players(id) ON DELETE CASCADE,
-    x_coordinate NUMERIC(5, 2),
-    y_coordinate NUMERIC(5, 2),
-    time_elapsed INTERVAL,
-    created_at TIMESTAMPTZ DEFAULT NOW(),
-    updated_at TIMESTAMPTZ,
-    deleted_at TIMESTAMPTZ
-);
-ALTER TABLE hits ENABLE ROW LEVEL SECURITY;
 
 -- 6. blocked_shots
-CREATE TABLE blocked_shots (
-    id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
-    ini_code VARCHAR(4) DEFAULT 'BLKS',
-    game_id UUID NOT NULL REFERENCES games(id) ON DELETE CASCADE,
-    period_id UUID REFERENCES periods(id) ON DELETE CASCADE,
-    blocking_player_id UUID REFERENCES players(id) ON DELETE CASCADE,
-    shooting_player_id UUID REFERENCES players(id) ON DELETE CASCADE,
-    x_coordinate NUMERIC(5, 2),
-    y_coordinate NUMERIC(5, 2),
-    time_elapsed INTERVAL,
-    created_at TIMESTAMPTZ DEFAULT NOW(),
-    updated_at TIMESTAMPTZ,
-    deleted_at TIMESTAMPTZ
-);
-ALTER TABLE blocked_shots ENABLE ROW LEVEL SECURITY;
 
 -- 7. shifts
 CREATE TABLE shifts (
@@ -114,91 +57,16 @@ CREATE TABLE shifts (
 ALTER TABLE shifts ENABLE ROW LEVEL SECURITY;
 
 -- 8. giveaways
-CREATE TABLE giveaways (
-    id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
-    ini_code VARCHAR(4) DEFAULT 'GIVE',
-    game_id UUID NOT NULL REFERENCES games(id) ON DELETE CASCADE,
-    period_id UUID REFERENCES periods(id) ON DELETE CASCADE,
-    player_id UUID NOT NULL REFERENCES players(id) ON DELETE CASCADE,
-    zone VARCHAR(20),
-    time_elapsed INTERVAL,
-    created_at TIMESTAMPTZ DEFAULT NOW(),
-    updated_at TIMESTAMPTZ,
-    deleted_at TIMESTAMPTZ
-);
-ALTER TABLE giveaways ENABLE ROW LEVEL SECURITY;
 
 -- 9. takeaways
-CREATE TABLE takeaways (
-    id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
-    ini_code VARCHAR(4) DEFAULT 'TAKE',
-    game_id UUID NOT NULL REFERENCES games(id) ON DELETE CASCADE,
-    period_id UUID REFERENCES periods(id) ON DELETE CASCADE,
-    player_id UUID NOT NULL REFERENCES players(id) ON DELETE CASCADE,
-    zone VARCHAR(20),
-    time_elapsed INTERVAL,
-    created_at TIMESTAMPTZ DEFAULT NOW(),
-    updated_at TIMESTAMPTZ,
-    deleted_at TIMESTAMPTZ
-);
-ALTER TABLE takeaways ENABLE ROW LEVEL SECURITY;
 
 -- 10. icings
-CREATE TABLE icings (
-    id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
-    ini_code VARCHAR(4) DEFAULT 'ICNG',
-    game_id UUID NOT NULL REFERENCES games(id) ON DELETE CASCADE,
-    period_id UUID REFERENCES periods(id) ON DELETE CASCADE,
-    offending_team_id UUID NOT NULL REFERENCES teams(id) ON DELETE CASCADE,
-    time_elapsed INTERVAL,
-    created_at TIMESTAMPTZ DEFAULT NOW(),
-    updated_at TIMESTAMPTZ,
-    deleted_at TIMESTAMPTZ
-);
-ALTER TABLE icings ENABLE ROW LEVEL SECURITY;
 
 -- 11. offsides
-CREATE TABLE offsides (
-    id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
-    ini_code VARCHAR(4) DEFAULT 'OFFS',
-    game_id UUID NOT NULL REFERENCES games(id) ON DELETE CASCADE,
-    period_id UUID REFERENCES periods(id) ON DELETE CASCADE,
-    offending_team_id UUID NOT NULL REFERENCES teams(id) ON DELETE CASCADE,
-    time_elapsed INTERVAL,
-    created_at TIMESTAMPTZ DEFAULT NOW(),
-    updated_at TIMESTAMPTZ,
-    deleted_at TIMESTAMPTZ
-);
-ALTER TABLE offsides ENABLE ROW LEVEL SECURITY;
 
 -- 12. time_outs
-CREATE TABLE time_outs (
-    id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
-    ini_code VARCHAR(4) DEFAULT 'TOUT',
-    game_id UUID NOT NULL REFERENCES games(id) ON DELETE CASCADE,
-    period_id UUID REFERENCES periods(id) ON DELETE CASCADE,
-    team_id UUID NOT NULL REFERENCES teams(id) ON DELETE CASCADE,
-    time_elapsed INTERVAL,
-    created_at TIMESTAMPTZ DEFAULT NOW(),
-    updated_at TIMESTAMPTZ,
-    deleted_at TIMESTAMPTZ
-);
-ALTER TABLE time_outs ENABLE ROW LEVEL SECURITY;
 
 -- 13. shootouts
-CREATE TABLE shootouts (
-    id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
-    ini_code VARCHAR(4) DEFAULT 'SHTO',
-    game_id UUID NOT NULL REFERENCES games(id) ON DELETE CASCADE,
-    round_number INTEGER,
-    shooter_id UUID REFERENCES players(id) ON DELETE CASCADE,
-    goalie_id UUID REFERENCES players(id) ON DELETE CASCADE,
-    is_goal BOOLEAN DEFAULT FALSE,
-    created_at TIMESTAMPTZ DEFAULT NOW(),
-    updated_at TIMESTAMPTZ,
-    deleted_at TIMESTAMPTZ
-);
-ALTER TABLE shootouts ENABLE ROW LEVEL SECURITY;
 
 -- 14. video_reviews
 CREATE TABLE video_reviews (
