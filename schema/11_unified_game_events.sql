@@ -43,6 +43,14 @@ CREATE TABLE unified_game_events (
     faceoff_won_by_team_id UUID REFERENCES teams(id) ON DELETE SET NULL,
     stoppage_reason VARCHAR(100), -- 'Icing', 'Offside', 'Goalie Freeze', 'Puck Out of Bounds', 'Hand Pass', 'High Sticking the Puck'
 
+    -- Game Context at time of event
+    home_team_score INTEGER,
+    away_team_score INTEGER,
+    home_team_on_ice_strength INTEGER, -- e.g. 5 for 5v5, 4 for 5v4
+    away_team_on_ice_strength INTEGER,
+    called_by_official_id UUID REFERENCES game_officials(id) ON DELETE SET NULL,
+    video_review_occurred BOOLEAN DEFAULT FALSE,
+
     -- Flexible Metadata for future-proofing
     metadata JSONB,
 
