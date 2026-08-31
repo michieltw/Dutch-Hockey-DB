@@ -20,6 +20,7 @@ CREATE TABLE inventory (
     ini_code VARCHAR(4) DEFAULT 'INVT',
     product_id UUID NOT NULL REFERENCES products(id) ON DELETE CASCADE,
     seller_id UUID REFERENCES sellers(id) ON DELETE SET NULL,
+    retailer_id UUID REFERENCES retailers(id) ON DELETE SET NULL,
     quantity INTEGER DEFAULT 0,
     location VARCHAR(100),
     created_at TIMESTAMPTZ DEFAULT NOW(),

@@ -188,7 +188,7 @@ CREATE TABLE products (
     ini_code VARCHAR(4) DEFAULT 'PROD',
     category_id UUID REFERENCES categories(id) ON DELETE SET NULL,
     brand_id UUID REFERENCES brands(id) ON DELETE SET NULL,
-    club_id UUID REFERENCES clubs(id) ON DELETE SET NULL, -- For club merchandise
+    organization_id UUID REFERENCES organizations(id) ON DELETE SET NULL, -- Allow any org to have products
     name VARCHAR(255) NOT NULL,
     description TEXT,
     price NUMERIC(10, 2) NOT NULL,
