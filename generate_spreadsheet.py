@@ -85,13 +85,8 @@ def parse_insert_data(filepath):
             strings[placeholder] = m.group(0)
             return placeholder
 
-        # safely handle single quotes
         s = re.sub(r"'(''|[^'])*'", replacer, values_str)
 
-        # safely handle postgres syntax like `(SELECT id FROM ...)` inside values
-        # This requires matching properly nested parentheses.
-        # But a simple solution that avoids subqueries with commas splitting rows is:
-        # replacing subqueries first
         def subquery_replacer(m):
             idx = len(strings)
             placeholder = f"__SUBQ_{idx}__"
@@ -141,23 +136,41 @@ for table in sorted(tables):
         t_name, cols = parse_sql_file(data_path)
 
     if cols:
-        ws.append(['Column Name', 'Data Type', 'Constraints'])
-        for col in cols:
-            ws.append([col['name'], col['type'], col['constraints']])
-
-        ws.append([])
+        # Row 1: Column Names
+        ws.append([col['name'] for col in cols])
+        # Row 2: Data Types
+        ws.append([col['type'] for col in cols])
+        # Row 3: Constraints
+        ws.append([col['constraints'] for col in cols])
 
         inserts = parse_insert_data(data_path)
         inserts.extend(parse_insert_data(schema_path))
 
         if inserts:
-            ws.append(['--- Data ---'])
+            # We want to match the data with the column order
+            col_names = [col['name'] for col in cols]
             for insert in inserts:
-                if insert['columns']:
-                    ws.append(insert['columns'])
+                insert_cols = insert['columns']
                 for row in insert['rows']:
-                    ws.append(row)
-                ws.append([])
+                    out_row = []
+                    for c_name in col_names:
+                        if insert_cols and c_name in insert_cols:
+                            c_idx = insert_cols.index(c_name)
+                            # Handle cases where rows might be incomplete compared to insert_cols
+                            if c_idx < len(row):
+                                out_row.append(row[c_idx])
+                            else:
+                                out_row.append("")
+                        elif not insert_cols:
+                            # If columns were not specified in INSERT statement, we assume order matches schema
+                            c_idx = col_names.index(c_name)
+                            if c_idx < len(row):
+                                out_row.append(row[c_idx])
+                            else:
+                                out_row.append("")
+                        else:
+                            out_row.append("") # Null or default value since column wasn't in INSERT
+                    ws.append(out_row)
     else:
         ws.append([f"No schema found for {table}"])
 
