@@ -59,11 +59,22 @@ def parse_insert_data(filepath):
         content = f.read()
 
     inserts = []
-    insert_matches = re.finditer(r'INSERT INTO\s+(\w+)\s*\((.*?)\)\s*VALUES\s*(.*?);', content, re.DOTALL | re.IGNORECASE)
-    for match in insert_matches:
-        table_name = match.group(1)
-        columns = [c.strip() for c in match.group(2).split(',')]
-        values_str = match.group(3).strip()
+
+    statements = re.split(r'INSERT INTO\s+', content, flags=re.IGNORECASE)[1:]
+    for stmt in statements:
+        match = re.match(r'(\w+)\s*\((.*?)\)\s*VALUES\s*(.*?);', stmt, re.DOTALL | re.IGNORECASE)
+        if match:
+            table_name = match.group(1)
+            columns = [c.strip() for c in match.group(2).split(',')]
+            values_str = match.group(3).strip()
+        else:
+            match2 = re.match(r'(\w+)\s*VALUES\s*(.*?);', stmt, re.DOTALL | re.IGNORECASE)
+            if match2:
+                table_name = match2.group(1)
+                columns = []
+                values_str = match2.group(2).strip()
+            else:
+                continue
 
         rows = []
 
@@ -74,7 +85,20 @@ def parse_insert_data(filepath):
             strings[placeholder] = m.group(0)
             return placeholder
 
+        # safely handle single quotes
         s = re.sub(r"'(''|[^'])*'", replacer, values_str)
+
+        # safely handle postgres syntax like `(SELECT id FROM ...)` inside values
+        # This requires matching properly nested parentheses.
+        # But a simple solution that avoids subqueries with commas splitting rows is:
+        # replacing subqueries first
+        def subquery_replacer(m):
+            idx = len(strings)
+            placeholder = f"__SUBQ_{idx}__"
+            strings[placeholder] = m.group(0)
+            return placeholder
+
+        s = re.sub(r"\(\s*SELECT\b[^)]+\)", subquery_replacer, s, flags=re.IGNORECASE)
 
         row_matches = re.finditer(r'\(([^)]+)\)', s)
         for r_match in row_matches:
@@ -129,7 +153,8 @@ for table in sorted(tables):
         if inserts:
             ws.append(['--- Data ---'])
             for insert in inserts:
-                ws.append(insert['columns'])
+                if insert['columns']:
+                    ws.append(insert['columns'])
                 for row in insert['rows']:
                     ws.append(row)
                 ws.append([])
