@@ -52,6 +52,47 @@ def parse_sql_file(filepath):
 
     return table_name, columns
 
+def parse_values_string(s):
+    rows = []
+    current_row = []
+    current_val = []
+    in_string = False
+    paren_depth = 0
+    i = 0
+    while i < len(s):
+        c = s[i]
+        if c == "'":
+            if in_string and i + 1 < len(s) and s[i+1] == "'":
+                current_val.append("''")
+                i += 2
+                continue
+            else:
+                in_string = not in_string
+                current_val.append(c)
+        elif in_string:
+            current_val.append(c)
+        else:
+            if c == '(':
+                paren_depth += 1
+                if paren_depth > 1:
+                    current_val.append(c)
+            elif c == ')':
+                paren_depth -= 1
+                if paren_depth > 0:
+                    current_val.append(c)
+                elif paren_depth == 0:
+                    current_row.append("".join(current_val).strip())
+                    current_val = []
+                    rows.append(current_row)
+                    current_row = []
+            elif c == ',' and paren_depth == 1:
+                current_row.append("".join(current_val).strip())
+                current_val = []
+            elif paren_depth > 0:
+                current_val.append(c)
+        i += 1
+    return rows
+
 def parse_insert_data(filepath):
     if not os.path.exists(filepath):
         return []
@@ -59,7 +100,6 @@ def parse_insert_data(filepath):
         content = f.read()
 
     inserts = []
-
     statements = re.split(r'INSERT INTO\s+', content, flags=re.IGNORECASE)[1:]
     for stmt in statements:
         match = re.match(r'(\w+)\s*\((.*?)\)\s*VALUES\s*(.*?);', stmt, re.DOTALL | re.IGNORECASE)
@@ -76,35 +116,7 @@ def parse_insert_data(filepath):
             else:
                 continue
 
-        rows = []
-
-        strings = {}
-        def replacer(m):
-            idx = len(strings)
-            placeholder = f"__STR_{idx}__"
-            strings[placeholder] = m.group(0)
-            return placeholder
-
-        s = re.sub(r"'(''|[^'])*'", replacer, values_str)
-
-        def subquery_replacer(m):
-            idx = len(strings)
-            placeholder = f"__SUBQ_{idx}__"
-            strings[placeholder] = m.group(0)
-            return placeholder
-
-        s = re.sub(r"\(\s*SELECT\b[^)]+\)", subquery_replacer, s, flags=re.IGNORECASE)
-
-        row_matches = re.finditer(r'\(([^)]+)\)', s)
-        for r_match in row_matches:
-            row_content = r_match.group(1)
-            parts = [p.strip() for p in row_content.split(',')]
-
-            for i in range(len(parts)):
-                if parts[i] in strings:
-                    parts[i] = strings[parts[i]]
-
-            rows.append(parts)
+        rows = parse_values_string(values_str)
 
         inserts.append({
             'table': table_name,
@@ -136,18 +148,14 @@ for table in sorted(tables):
         t_name, cols = parse_sql_file(data_path)
 
     if cols:
-        # Row 1: Column Names
         ws.append([col['name'] for col in cols])
-        # Row 2: Data Types
         ws.append([col['type'] for col in cols])
-        # Row 3: Constraints
         ws.append([col['constraints'] for col in cols])
 
         inserts = parse_insert_data(data_path)
         inserts.extend(parse_insert_data(schema_path))
 
         if inserts:
-            # We want to match the data with the column order
             col_names = [col['name'] for col in cols]
             for insert in inserts:
                 insert_cols = insert['columns']
@@ -156,20 +164,18 @@ for table in sorted(tables):
                     for c_name in col_names:
                         if insert_cols and c_name in insert_cols:
                             c_idx = insert_cols.index(c_name)
-                            # Handle cases where rows might be incomplete compared to insert_cols
                             if c_idx < len(row):
                                 out_row.append(row[c_idx])
                             else:
                                 out_row.append("")
                         elif not insert_cols:
-                            # If columns were not specified in INSERT statement, we assume order matches schema
                             c_idx = col_names.index(c_name)
                             if c_idx < len(row):
                                 out_row.append(row[c_idx])
                             else:
                                 out_row.append("")
                         else:
-                            out_row.append("") # Null or default value since column wasn't in INSERT
+                            out_row.append("")
                     ws.append(out_row)
     else:
         ws.append([f"No schema found for {table}"])
